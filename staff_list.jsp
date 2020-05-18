@@ -36,8 +36,7 @@ function disp(){
 	// 確認ダイアログの表示
 	if(window.confirm('山田さんを削除しますか？\n登録済みの勤怠データも削除されます。')){
 		location.href = ""; // OK時の処理
-	}
-	else{
+	}else{
 		window.alert('キャンセルされました'); // 警告ダイアログを表示(キャンセル時の処理)
 	}
 }
