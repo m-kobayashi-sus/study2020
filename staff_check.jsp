@@ -49,23 +49,24 @@ div.white a{ color: white; }
   <div>
     <div>
       <span class="col-2"></span>
-      <span class="col-1"><b>名前</b></span>
-      <span><input type="text" size="50" name="name"></span>
+      <span class="col-1"><b><label for="name">お名前</label></b></span>
+      <span>山田 太郎</span>
     </div> 
   
     <div>
       <span class="col-2"></span>
-      <span class="col-1"><b>メールアドレス</b></span>
-      <span><input type="text" size="50" name="mailaddress"></span>
+      <span class="col-1"><b><label for="mailaddress">メールアドレス</label></b></span>
+      <span>t.yamada@csv.co.j@</span>
     </div>
   
     <div>
       <span class="col-2"></span>
-      <span class="col-1"><b>パスワード</b></span>
-      <span><input type="text" size="50" name="password"></span>
+      <span class="col-1"><b><label for="password">パスワード</label></b></span>
+      <span>**********</span>
     </div>
   </div>
 
   <div class="right"><button type=“button” onclick="location.href='/attendance/staff_reg_complete.jsp'">登録する</button></div>
   
 </body>
+</html>
