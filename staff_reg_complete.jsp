@@ -39,3 +39,4 @@ div.white a{ color: white; }
   <center><button type=gbuttonh onclick="location.href='/attendance/attendanceList.jsp'">–ß‚é</button></center>
 
 </body>
+</html>

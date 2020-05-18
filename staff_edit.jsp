@@ -59,13 +59,13 @@ div.white a{ color: white; }
     <div>
       <span class="col-2"></span>
       <span class="col-1"><b>パスワード(変更前)</b></span>
-      <span><input type="text" size="50" name="password"></span>
+      <span><input type="password" size="50" name="password"></span>
     </div>
   
     <div>
       <span class="col-2"></span>
       <span class="col-1"><b>パスワード(変更後)</b></span>
-      <span><input type="text" size="50" name="password"></span>
+      <span><input type="password" size="50" name="password"></span>
     </div>
   
   </div>
@@ -73,3 +73,4 @@ div.white a{ color: white; }
   <div class="right"><button type=“button” onclick="location.href='/attendance/staff_check.jsp'">編集する</button></div>
 
 </body>
+</html>

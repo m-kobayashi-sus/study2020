@@ -59,7 +59,7 @@ div.white a{ color: white; }
     <div>
       <span class="col-2"></span>
       <span class="col-1"><b>ÉpÉXÉèÅ[Éh</b></span>
-      <span><input type="text" size="50" name="password"></span>
+      <span><input type="password" size="50" name="password"></span>
     </div>
  
   </div>
@@ -67,3 +67,4 @@ div.white a{ color: white; }
   <div class="right"><button type=ÅgbuttonÅh onclick="location.href='/attendance/staff_check.jsp'">ìoò^Ç∑ÇÈ</button></div>
 
 </body>
+</html>
