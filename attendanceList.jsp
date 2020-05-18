@@ -85,15 +85,9 @@ function disp(){
 
 	// 確認ダイアログの表示
 	if(window.confirm('山田さんを削除しますか？\n登録済みの勤怠データも削除されます。')){
-
 		location.href = ""; // OK時の処理
-
-	}
-
-	else{
-
+	}else{
 		window.alert('キャンセルされました'); // 警告ダイアログを表示(キャンセル時の処理)
-
 	}
 }
 
@@ -110,10 +104,10 @@ function disp(){
 
   <p>
     <select name="name">
-	  <option value="">社員を選択</option>	
-	  <option value="山田 太郎">山田 太郎</option>	
-	  <option value="鈴木 一郎">鈴木 一郎</option>	
-	  <option value="佐藤 二郎">佐藤 二郎</option>	
+      <option value="">社員を選択</option>	
+      <option value="山田 太郎">山田 太郎</option>	
+      <option value="鈴木 一郎">鈴木 一郎</option>	
+      <option value="佐藤 二郎">佐藤 二郎</option>	
     </select>
   </p>
 
@@ -134,8 +128,8 @@ function disp(){
 	<option value="07">07</option>	
 	<option value="08">08</option>	
 	<option value="09">09</option>	
-	<option value="10">10</option>	
-	<option value="11">11</option>	
+    <option value="10">10</option>	
+    <option value="11">11</option>	
 	<option value="12">12</option>	
   </select>&nbsp;月
 
@@ -160,10 +154,10 @@ function disp(){
           <td>0501</td><td>9:00</td><td>18:00</td><td>1:00</td><td>8:00</td><td>実装</td><td><button type=“button” onclick="location.href='/attendance/staff_edit.jsp'">編集</button>&nbsp;<button type="button" onClick="disp()">削除</button></td>
         </tr>
         <tr>
-          <td>0502</td><td></td><td></td><td></td><td></td><td></td><td></td>
+          <td>0502</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
         </tr>
         <tr>
-           <td>0503</td><td></td><td></td><td></td><td></td><td></td><td></td>
+          <td>0503</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
         </tr>
       </table> 
 

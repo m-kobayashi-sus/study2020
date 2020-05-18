@@ -35,15 +35,10 @@ function disp(){
 
 	// 確認ダイアログの表示
 	if(window.confirm('山田さんを削除しますか？\n登録済みの勤怠データも削除されます。')){
-
 		location.href = ""; // OK時の処理
-
 	}
-
 	else{
-
 		window.alert('キャンセルされました'); // 警告ダイアログを表示(キャンセル時の処理)
-
 	}
 }
 
@@ -69,10 +64,11 @@ function disp(){
       <td>1</td><td>山田 太郎</td><td>t.yamada@csv.co.jp</td><td><button type=“button” onclick="location.href='/attendance/staff_edit.jsp'">編集</button>&nbsp;<input type="button" value="削除" onClick="disp()"></td>
     </tr>
     <tr>
-      <td>2</td><td></td><td></td><td></td>
+      <td>2</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
     </tr>
   </table> 
 
   <p class="right"><button type=“button” onclick="location.href='/attendance/staff_reg.jsp'">社員を登録する</button></p>
 
 </body>
+</html>
