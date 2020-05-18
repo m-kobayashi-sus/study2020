@@ -61,15 +61,15 @@ div.white a{ color: white; }
       <span class="col-1"><b>èoãŒéûçè</b></span>
       <span>
         <select name="start_time">
-	      <option value="06">06</option>	
-	      <option value="07">07</option>	
-	      <option value="08">08</option>	
-	      <option value="09">09</option>	
-	      <option value="10">10</option>	
-	      <option value="11">11</option>	
-	      <option value="12">12</option>	
-	      <option value="13">13</option>	
-	      <option value="14">14</option>	
+          <option value="06">06</option>	
+          <option value="07">07</option>	
+          <option value="08">08</option>	
+          <option value="09">09</option>	
+          <option value="10">10</option>	
+          <option value="11">11</option>	
+          <option value="12">12</option>	
+          <option value="13">13</option>	
+          <option value="14">14</option>	
         </select>&nbsp;éû
         <input type="text" size="5" name="minute">&nbsp;ï™
       </span>
@@ -79,20 +79,20 @@ div.white a{ color: white; }
     <span class="col-2"></span>
     <span class="col-1"><b>ëﬁãŒéûçè</b></span>
     <span>
-        <select name="end_time">
-	      <option value="15">15</option>	
-	      <option value="16">16</option>	
-	      <option value="17">17</option>	
-	      <option value="18">18</option>	
-	      <option value="19">19</option>	
-	      <option value="20">20</option>	
-	      <option value="21">21</option>	
-	      <option value="22">22</option>	
-	      <option value="23">23</option>	
-        </select>&nbsp;éû
-        <input type="text" size="5" name="minute">&nbsp;ï™
-      </span>
-    </div>
+      <select name="end_time">
+        <option value="15">15</option>	
+        <option value="16">16</option>	
+        <option value="17">17</option>	
+        <option value="18">18</option>	
+        <option value="19">19</option>	
+	    <option value="20">20</option>	
+	    <option value="21">21</option>
+	    <option value="22">22</option>	
+	    <option value="23">23</option>	
+	  </select>&nbsp;éû
+      <input type="text" size="5" name="minute">&nbsp;ï™
+    </span>
+  </div>
   
     <div>
       <span class="col-2"></span>
@@ -111,3 +111,4 @@ div.white a{ color: white; }
   <div class="right"><button type=ÅgbuttonÅh onclick="location.href='/attendance/complete.jsp'">ìoò^Ç∑ÇÈ</button></div>
 
 </body>
+</html>

@@ -39,3 +39,4 @@ div.white a{ color: white; }
   <center><button type=“button” onclick="location.href='/attendance/attendanceList.jsp'">勤怠管理システムトップに戻る</button></center>
 
 </body>
+</html>
