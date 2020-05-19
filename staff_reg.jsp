@@ -5,29 +5,30 @@
 <title>ŽÐˆõ“o˜^‰æ–Ê</title>
 
 <style type="text/css">
-.blue {
-   background-color:blue; ;
-}
+  .blue {
+    background-color:blue; ;
+  }
 
-.left{
-  texti-align: left;
-}
+  .left{
+    texti-align: left;
+  }
 
-.right{
-  text-align: right;
-  float: right;
-}
+  .right{
+    text-align: right;
+    float: right;
+  }
 
-div.white a{ color: white; }
+  div.white a{ color: white; }
 
-.col-1 {
+  .col-1 {
     display: inline-block;
     width: 200px;
-}
-.col-2 {
+  }
+
+  .col-2 {
     display: inline-block;
     width: 50px;
-}
+  }
 
 </style>
 

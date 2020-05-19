@@ -5,21 +5,20 @@
 <title>ÉGÉâÅ[âÊñ </title>
 
 <style type="text/css">
-.blue {
-   background-color:blue; ;
-}
+  .blue {
+    background-color:blue; ;
+  }
 
-.left{
-  texti-align: left;
-}
+  .left{
+    texti-align: left;
+  }
 
-.right{
-  text-align: right;
-  float: right;
-}
+  .right{
+    text-align: right;
+    float: right;
+  }
 
-
-div.white a{ color: white; }
+  div.white a{ color: white; }
 
 </style>
 

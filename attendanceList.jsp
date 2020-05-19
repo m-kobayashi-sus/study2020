@@ -5,90 +5,90 @@
 <title>勤怠管理システムTOP</title>
 
 <style type="text/css">
-.blue {
-   background-color:blue; ;
-}
+  .blue {
+    background-color:blue; ;
+  }
 
-.left{
-  texti-align: left;
-}
+  .left{
+    texti-align: left;
+  }
 
-.right{
-  text-align: right;
-  float: right;
-}
+  .right{
+    text-align: right;
+    float: right;
+  }
 
-.parent {
-  display: flex;   
-  justify-content: center;
-  position: relative;
-}
+  .parent {
+    display: flex;   
+    justify-content: center;
+    position: relative;
+  }
 
-.right2 {
-  position: absolute;
-  right: 0; 
-}
+  .right2 {
+    position: absolute;
+    right: 0; 
+  }
 
-.left2 {
-  position: absolute;
-  left: 0; 
-}
+  .left2 {
+    position: absolute;
+    left: 0; 
+  }
 
-table {
-  border-collapse: collapse;
-}
-table th, table td {
-  border: solid 1px black;
-}
+  table {
+    border-collapse: collapse;
+  }
+  
+  table th, table td {
+    border: solid 1px black;
+  }
 
-div.white a{ color: white; }
+  div.white a{ color: white; }
 
-.hidden_box {
+  .hidden_box {
     margin:  0;
     padding: 0;
-}
+  }
 
-.hidden_box label {
+  .hidden_box label {
     padding: 2px;
     font-weight: bold;
     border: solid 1px black;
     cursor :pointer;
-}
+  }
 
-.hidden_box label:hover {
+  .hidden_box label:hover {
     background: #efefef;
-}
+  }
 
-.hidden_box input {
+  .hidden_box input {
     display: none;
-}
+  }
 
-.hidden_box .hidden_show {
+  .hidden_box .hidden_show {
     height: 0;
     padding: 0;
     overflow: hidden;
     opacity: 0;
     transition: 0.8s;
-}
+  }
 
-.hidden_box input:checked ~ .hidden_show {
+  .hidden_box input:checked ~ .hidden_show {
     padding: 10px 0;
     height: auto;
     opacity: 1;
-}
+  }
 
 </style>
 
 <script type="text/javascript">
 
-function disp(){
-
-	// 確認ダイアログの表示
-	if(window.confirm('山田さんを削除しますか？\n登録済みの勤怠データも削除されます。')){
-		location.href = ""; // OK時の処理
-	}else{
-		window.alert('キャンセルされました'); // 警告ダイアログを表示(キャンセル時の処理)
-	}
+  function disp(){
+    // 確認ダイアログの表示
+    if(window.confirm('山田さんを削除しますか？\n登録済みの勤怠データも削除されます。')){
+      location.href = ""; // OK時の処理
+    }else{
+      window.alert('キャンセルされました'); // 警告ダイアログを表示(キャンセル時の処理)
+    }
 }
 
 </script>
