@@ -46,28 +46,30 @@
 
   <p style="border-style: solid; border-width: 1px; padding: 5px 5px 5px 5px;background-color:#66FF66;">登録内容を確認し、問題がなければ「登録する」を押してください。<br>セキュリティ上、パスワードは表示されません。</p>
 
-
-  <div>
-    <div>
-      <span class="col-2"></span>
-      <span class="col-1"><b><label for="name">お名前</label></b></span>
-      <span>山田 太郎</span>
-    </div> 
+  <span class="col-2"></span>
+  <span class="col-1"><b>お名前</b></span>
+  <%
+    String name = (String)session.getAttribute("Name");
+    out.print(name);
+  %>
+  <br>
+   
+  <span class="col-2"></span>
+  <span class="col-1"><b>メールアドレス</b></span>
+  <%
+    String mailaddress = (String)session.getAttribute("Mailaddress");
+    out.print(mailaddress);
+  %>
+  <br>
   
-    <div>
-      <span class="col-2"></span>
-      <span class="col-1"><b><label for="mailaddress">メールアドレス</label></b></span>
-      <span>t.yamada@csv.co.j@</span>
-    </div>
+  <span class="col-2"></span>
+  <span class="col-1"><b>パスワード</b></span>
+  <%
+    String pass = (String)session.getAttribute("Pass");
+    out.print(pass);
+  %>
   
-    <div>
-      <span class="col-2"></span>
-      <span class="col-1"><b><label for="password">パスワード</label></b></span>
-      <span>**********</span>
-    </div>
-  </div>
-
-  <div class="right"><button type=“button” onclick="location.href='/attendance/staff_reg_complete.jsp'">登録する</button></div>
+  <div class="right"><button type=“button” onclick="location.href='/attendance/staff_reg_complete.jsp'">登録する</button></div> 
   
 </body>
 </html>

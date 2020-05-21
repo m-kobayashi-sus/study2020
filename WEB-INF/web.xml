@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+   http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+  version="2.4">
+
+  <servlet>
+    <servlet-name>helloworld</servlet-name>
+    <servlet-class>helloworld</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>helloworld</servlet-name>
+    <url-pattern>/helloworld</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>test</servlet-name>
+    <servlet-class>test</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>test</servlet-name>
+    <url-pattern>/test</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>staff_reg</servlet-name>
+    <servlet-class>staff_reg</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>staff_reg</servlet-name>
+    <url-pattern>/staff_reg</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>staff_reg_error</servlet-name>
+    <servlet-class>staff_reg_error</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>staff_reg_error</servlet-name>
+    <url-pattern>/staff_reg_error</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>staff_edit</servlet-name>
+    <servlet-class>staff_edit</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>staff_edit</servlet-name>
+    <url-pattern>/staff_edit</url-pattern>
+  </servlet-mapping>
+  
+</web-app>

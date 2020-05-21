@@ -46,28 +46,30 @@
 
   <p style="border-style: solid; border-width: 1px; padding: 5px 5px 5px 5px;background-color:#FF99CC;">・名前を入力してください。<br>・メールアドレスを入力してください。</p>
 
-
-  <div>
+  <form action="/attendance/staff_reg_error" method="POST"  style="display: inline">
     <div>
-      <span class="col-2"></span>
-      <span class="col-1"><b>名前</b></span>
-      <span><input type="text" size="50" name="name"></span>
-    </div> 
+      <div>
+        <span class="col-2"></span>
+        <span class="col-1"><b>名前</b></span>
+        <input type="text" size="50" name="name">
+      </div> 
   
-    <div>
-      <span class="col-2"></span>
-      <span class="col-1"><b>メールアドレス</b></span>
-      <span><input type="text" size="50" name="mailaddress"></span>
-    </div>
+      <div>
+        <span class="col-2"></span>
+        <span class="col-1"><b>メールアドレス</b></span>
+        <input type="text" size="50" name="mailaddress">
+      </div>
   
-    <div>
-      <span class="col-2"></span>
-      <span class="col-1"><b>パスワード</b></span>
-      <span><input type="password" size="50" name="password"></span>
+      <div>
+        <span class="col-2"></span>
+        <span class="col-1"><b>パスワード</b></span>
+        <input type="password" size="50" name="password">
+      </div>
     </div>
-  </div>
 
-  <div class="right"><button type=“button” onclick="location.href='/attendance/staff_reg_complete.jsp'">登録する</button></div>
+    <div class="right"><input type="submit" value="登録する"></div>
+  </form>
+
   
 </body>
 </html>

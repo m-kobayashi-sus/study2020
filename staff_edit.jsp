@@ -44,34 +44,34 @@
 
   <h2><center>社員編集</center></h2>
 
-  <div>
+  <form action="/attendance/staff_edit" method="POST"  style="display: inline">
     <div>
-      <span class="col-2"></span>
-      <span class="col-1"><b>名前</b></span>
-      <span><input type="text" size="50" name="name"></span>
-    </div> 
+      <div>
+        <span class="col-2"></span>
+        <span class="col-1"><b>名前</b></span>
+        <input type="text" size="50" name="name">
+      </div> 
   
-    <div>
-      <span class="col-2"></span>
-      <span class="col-1"><b>メールアドレス</b></span>
-      <span><input type="text" size="50" name="mailaddress"></span>
+      <div>
+        <span class="col-2"></span>
+        <span class="col-1"><b>メールアドレス</b></span>
+        <input type="text" size="50" name="mailaddress">
+      </div>
+  
+      <div>
+        <span class="col-2"></span>
+        <span class="col-1"><b>パスワード(変更前)</b></span>
+        <input type="password" size="50" name="password">
+      </div>
+  
+      <div>
+        <span class="col-2"></span>
+        <span class="col-1"><b>パスワード(変更後)</b></span>
+        <span><input type="password" size="50" name="change_password"></span>
+      </div>
     </div>
-  
-    <div>
-      <span class="col-2"></span>
-      <span class="col-1"><b>パスワード(変更前)</b></span>
-      <span><input type="password" size="50" name="password"></span>
-    </div>
-  
-    <div>
-      <span class="col-2"></span>
-      <span class="col-1"><b>パスワード(変更後)</b></span>
-      <span><input type="password" size="50" name="password"></span>
-    </div>
-  
-  </div>
-
-  <div class="right"><button type=“button” onclick="location.href='/attendance/staff_check.jsp'">編集する</button></div>
+    <div class="right"><input type="submit" value="編集する"></div>
+  </form>
 
 </body>
 </html>
