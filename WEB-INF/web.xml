@@ -4,17 +4,7 @@
   xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
    http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
   version="2.4">
-
-  <servlet>
-    <servlet-name>helloworld</servlet-name>
-    <servlet-class>helloworld</servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>helloworld</servlet-name>
-    <url-pattern>/helloworld</url-pattern>
-  </servlet-mapping>
-
+  
   <servlet>
     <servlet-name>test</servlet-name>
     <servlet-class>test</servlet-class>
@@ -26,33 +16,33 @@
   </servlet-mapping>
   
   <servlet>
-    <servlet-name>staff_reg</servlet-name>
-    <servlet-class>staff_reg</servlet-class>
+    <servlet-name>StaffReg</servlet-name>
+    <servlet-class>StaffReg</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>staff_reg</servlet-name>
-    <url-pattern>/staff_reg</url-pattern>
+    <servlet-name>StaffReg</servlet-name>
+    <url-pattern>/StaffReg</url-pattern>
   </servlet-mapping>
   
   <servlet>
-    <servlet-name>staff_reg_error</servlet-name>
-    <servlet-class>staff_reg_error</servlet-class>
+    <servlet-name>StaffRegError</servlet-name>
+    <servlet-class>StaffRegError</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>staff_reg_error</servlet-name>
-    <url-pattern>/staff_reg_error</url-pattern>
+    <servlet-name>StaffRegError</servlet-name>
+    <url-pattern>/StaffRegError</url-pattern>
   </servlet-mapping>
   
   <servlet>
-    <servlet-name>staff_edit</servlet-name>
-    <servlet-class>staff_edit</servlet-class>
+    <servlet-name>StaffEdit</servlet-name>
+    <servlet-class>StaffEdit</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>staff_edit</servlet-name>
-    <url-pattern>/staff_edit</url-pattern>
+    <servlet-name>StaffEdit</servlet-name>
+    <url-pattern>/StaffEdit</url-pattern>
   </servlet-mapping>
   
 </web-app>

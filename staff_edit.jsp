@@ -44,7 +44,7 @@
 
   <h2><center>ŽÐˆõ•ÒW</center></h2>
 
-  <form action="/attendance/staff_edit" method="POST"  style="display: inline">
+  <form action="/attendance/StaffEdit" method="POST"  style="display: inline">
     <div>
       <div>
         <span class="col-2"></span>

@@ -46,7 +46,7 @@
 
   <p style="border-style: solid; border-width: 1px; padding: 5px 5px 5px 5px;background-color:#FF99CC;">・名前を入力してください。<br>・メールアドレスを入力してください。</p>
 
-  <form action="/attendance/staff_reg_error" method="POST"  style="display: inline">
+  <form action="/attendance/StaffRegError" method="POST"  style="display: inline">
     <div>
       <div>
         <span class="col-2"></span>
