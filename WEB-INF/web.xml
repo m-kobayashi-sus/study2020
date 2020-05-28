@@ -15,6 +15,17 @@
     <url-pattern>/test</url-pattern>
   </servlet-mapping>
   
+  
+  <servlet>
+    <servlet-name>test2</servlet-name>
+    <servlet-class>test2</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>test2</servlet-name>
+    <url-pattern>/test2</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
     <servlet-name>StaffReg</servlet-name>
     <servlet-class>StaffReg</servlet-class>
@@ -43,6 +54,36 @@
   <servlet-mapping>
     <servlet-name>StaffEdit</servlet-name>
     <url-pattern>/StaffEdit</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+    <servlet-name>AttendanceList</servlet-name>
+    <servlet-class>AttendanceList</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>AttendanceList</servlet-name>
+    <url-pattern>/AttendanceList</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>NextMonth</servlet-name>
+    <servlet-class>NextMonth</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>NextMonth</servlet-name>
+    <url-pattern>/NextMonth</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+    <servlet-name>PrevMonth</servlet-name>
+    <servlet-class>PrevMonth</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>PrevMonth</servlet-name>
+    <url-pattern>/PrevMonth</url-pattern>
   </servlet-mapping>
   
 </web-app>
