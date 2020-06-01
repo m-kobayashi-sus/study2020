@@ -43,18 +43,19 @@
   </header>
 
   <h2><center>‹Î‘Ó“o˜^</center></h2>
-
+  
+  <form action = "/attendance/AttendanceEditor" method="POST" >
   <div>
     <div>
       <span class="col-2"></span>
       <span class="col-1"><b>–¼‘O</b></span>
-      <span>ŽR“c ‘¾˜Y</span>
+      <span><input type="text" name="name" value=<%= request.getAttribute("name") %>></span>
     </div> 
   
     <div>
       <span class="col-2"></span>
       <span class="col-1"><b>“ú•t</b></span>
-      <span>2010”N3ŒŽ4“ú</span>
+      <span><input type="text" size="5" name="year" value=<%= request.getAttribute("year") %>>&nbsp;”N  <input type="text" size="5" name="month" value=<%= request.getAttribute("month") %>>&nbsp;ŒŽ  <input type="text" size="5" name="day" value=<%= request.getAttribute("day") %>>&nbsp;“ú</span>
     </div>
   
     <div>
@@ -72,7 +73,7 @@
           <option value="13">13</option>	
           <option value="14">14</option>	
         </select>&nbsp;Žž
-        <input type="text" size="5" name="minute">&nbsp;•ª
+        <input type="text" size="5" name="start_minute">&nbsp;•ª
       </span>
     </div>
   
@@ -91,7 +92,7 @@
         <option value="22">22</option>	
         <option value="23">23</option>	
       </select>&nbsp;Žž
-      <input type="text" size="5" name="minute">&nbsp;•ª
+      <input type="text" size="5" name="end_minute">&nbsp;•ª
     </span>
   </div>
   
@@ -109,7 +110,11 @@
   
   </div>
 
-  <div class="right"><button type=gbuttonh onclick="location.href='/attendance/complete.jsp'">“o˜^‚·‚é</button></div>
+  <div class="right"><input type="submit" value="“o˜^‚·‚é"></div>
+  </form>
+
+
+
 
 </body>
 </html>

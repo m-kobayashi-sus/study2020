@@ -86,4 +86,24 @@
     <url-pattern>/PrevMonth</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>AttendanceEditor</servlet-name>
+    <servlet-class>AttendanceEditor</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>AttendanceEditor</servlet-name>
+    <url-pattern>/AttendanceEditor</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>NameGet</servlet-name>
+    <servlet-class>NameGet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>NameGet</servlet-name>
+    <url-pattern>/NameGet</url-pattern>
+  </servlet-mapping>
+  
 </web-app>
