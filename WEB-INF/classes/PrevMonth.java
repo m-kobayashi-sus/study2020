@@ -1,3 +1,4 @@
+import db.DBAccesser;
 import java.io.*;
 import javax.servlet.*;
 import java.sql.Connection;
@@ -20,29 +21,23 @@ public class PrevMonth extends HttpServlet{
     String name = (String)request.getParameter("name"); // フォームから値を取得 
     String year = (String)request.getParameter("year");
     String month = (String)request.getParameter("month");
-    int prev = Integer.parseInt(month) - 1; //翌月を指定
-    month = String.valueOf(prev);
-    if (name.equals("null")){
+    int prev = Integer.parseInt(month) - 1; //前月を指定
+    month = String.valueOf(prev); 
+    if (name.equals("")){
       getServletContext().getRequestDispatcher("/attendanceList.jsp").forward(request, response);
     }
-    String hostname = "localhost"; //DBの接続に必要な値の設定
-    String dbname = "attendance"; 
-    String username = "postgres"; 
-    String password = "password"; 
-    Statement stmt = null;
-    Connection conn = null;
-    
+
+    DBAccesser db = new DBAccesser();
+    ResultSet rs = null;
     try{
-      DBConnect dc = new DBConnect();
-      conn = dc.sql();
+      db.open();
       out.println("接続成功");
-      stmt = conn.createStatement();
+      
       int nextMonth = Integer.parseInt(month) + 1;
       //実行するSQL
-      String sql = "SELECT * FROM attendance WHERE id = "+ name +" AND date >= '"+ year +"-"+ month +"-01' AND date <'"+ year +"-"+ nextMonth +"-01'";
-
+      String sql = "SELECT * FROM attendance WHERE employee_id = "+ name +" AND date >= '"+ year +"-"+ month +"-01' AND date <'"+ year +"-"+ nextMonth +"-01'";
       out.println(sql);
-      ResultSet rs = stmt .executeQuery(sql);
+      rs = db.getResultSet(sql);
       //データの取得
       while (rs.next()) {
         int id = rs.getInt("id");
@@ -53,7 +48,7 @@ public class PrevMonth extends HttpServlet{
         String detail = rs.getString("detail");
         Boolean deleteFlag = rs.getBoolean("delete_flag");
       
-        String diffTime = getTime(endTime,startTime,breakTime);
+        String diffTime = getTime(startTime,endTime,breakTime);
         //送信するデータの設定
         request.setAttribute("Year",year);
         request.setAttribute("Name",name);                   
@@ -64,24 +59,20 @@ public class PrevMonth extends HttpServlet{
         request.setAttribute("break_time",breakTime);
         request.setAttribute("detail",detail);
         request.setAttribute("diffTime",diffTime);
+        request.setAttribute("id",id);
  
         getServletContext().getRequestDispatcher("/attendanceList.jsp").forward(request, response);
       }
-      rs.close();
-
+      
       }catch(Exception e){
         e.printStackTrace();
       }finally{
         try{
-          if(conn != null){
-            conn.close();
-          }
-          if(stmt != null){
-            stmt.close();
-          }
-        }catch (SQLException e){
-            e.printStackTrace();
+          db.close();
+        }catch(Exception e){
+          e.printStackTrace();
         }
+        
       }
   }
      
@@ -94,11 +85,9 @@ public class PrevMonth extends HttpServlet{
   }
 
 
-  public static String getTime(String end, String start, String b) throws Exception { //勤務時間を計算 
-    String End = end.substring(0,2);
-    int hour = Integer.parseInt(End);
-    int breakTime = Integer.parseInt(b);
-    hour = hour - (breakTime/60);
+  public static String getTime(String start, String end, String breakTime) throws Exception { //勤務時間を計算 
+    int hour = Integer.parseInt(end.substring(0,2));
+    hour = hour - (Integer.parseInt(breakTime)/60);
     SimpleDateFormat formatter = new SimpleDateFormat ("HH:mm:ss"); 
     Date startDate = formatter.parse(start); // 開始時刻 
     Date endDate = formatter.parse(hour+":00:00"); // 終了時刻 
@@ -113,32 +102,4 @@ public class PrevMonth extends HttpServlet{
 
     return diffTimeStr;
   } 
-
-}
-
-//DB接続クラス
-class DBConnect {
-
-  String hostname;
-  String dbname;
-  String username;
-  String password;
-
-  DBConnect(){
-    hostname = "localhost"; 
-    dbname = "attendance"; 
-    username = "postgres";
-    password = "password"; 
-  }
-
-  Connection sql() throws SQLException{
-    Connection conn = null;
-    try{
-      Class.forName("org.postgresql.Driver");
-      conn = DriverManager.getConnection("jdbc:postgresql://" + hostname + ":5433/" + dbname, username, password);
-    }catch (Exception e){
-      e.printStackTrace();
-    }
-    return conn;    
-  }   
 }

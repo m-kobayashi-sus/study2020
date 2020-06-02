@@ -72,7 +72,7 @@
   
   <form action = "/attendance/AttendanceList" method="POST" >
     <select name="name">
-      <option value="null">社員を選択</option>	
+      <option value="">社員を選択</option>	
       <option value="1">CSV太郎</option>	
       <option value="2">CSV次郎</option>	
       <option value="3">CSV三郎</option>	
@@ -105,8 +105,7 @@
     </select>&nbsp;月
     <div class="right"><input type="submit" value="勤怠を表示する"></div>
   </form>
-
-  <%=request.getAttribute("Name")%>
+  
   <% if (request.getAttribute("Name") != null ) { %> 
     <p> <hr width="95%">
 
@@ -121,7 +120,7 @@
         <th width="120">日付</th><th width="120">開始</th><th width="120">終了</th><th width="120">休憩</th><th width="120">勤務時間</th><th width="120">作業内容</th><th width="120">編集</th>
       </tr>
       <tr>
-        <td><%= request.getAttribute("date") %></td><td><%= request.getAttribute("start_time") %></td><td><%= request.getAttribute("end_time") %><br></td><td>  <%= request.getAttribute("break_time") %></td><td><%= request.getAttribute("diffTime") %>:00</td><td><%= request.getAttribute("detail") %></td><td><button type=“button” onclick="location.href='/attendance/staff_edit.jsp'">編集</button>&nbsp;<button type="button" onClick="disp()">削除</button></td>
+        <td><%= request.getAttribute("date") %></td><td><%= request.getAttribute("start_time") %></td><td><%= request.getAttribute("end_time") %><br></td><td>  <%= request.getAttribute("break_time") %></td><td><%= request.getAttribute("diffTime") %>:00</td><td><%= request.getAttribute("detail") %></td><td><button type=“button” onclick="location.href='/attendance/NameGet?year=<%=request.getAttribute("Year") %>&name=<%=request.getAttribute("Name") %>&month=<%=request.getAttribute("Month") %>&date=<%=request.getAttribute("date") %>&<%=request.getAttribute("id")%>'">編集</button>&nbsp;<button type="button" onClick="disp()">削除</button></td>
       </tr>
       <tr>
         <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
@@ -132,7 +131,7 @@
     </table> 
 
     <p class="right"><button type=“button” onclick="location.href='/attendance/NameGet?name=<%=request.getAttribute("Name") %>'">勤怠を登録する</button></p>
-      
+<%=request.getAttribute("id") %>
   <% } %> 
 
 </body>
