@@ -72,7 +72,7 @@
   
   <form action = "/attendance/AttendanceList" method="POST" >
     <select name="name">
-      <option value="null">ŽÐˆõ‚ð‘I‘ð</option>	
+      <option value="">ŽÐˆõ‚ð‘I‘ð</option>	
       <option value="1">CSV‘¾˜Y</option>	
       <option value="2">CSVŽŸ˜Y</option>	
       <option value="3">CSVŽO˜Y</option>	
@@ -131,7 +131,7 @@
     </table> 
 
     <p class="right"><button type=gbuttonh onclick="location.href='/attendance/NameGet?name=<%=request.getAttribute("Name") %>'">‹Î‘Ó‚ð“o˜^‚·‚é</button></p>
-
+<%=request.getAttribute("id") %>
   <% } %> 
 
 </body>
