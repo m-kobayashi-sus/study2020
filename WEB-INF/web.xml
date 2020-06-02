@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+   http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+  version="2.4">
+  
+  <servlet>
+    <servlet-name>test</servlet-name>
+    <servlet-class>test</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>test</servlet-name>
+    <url-pattern>/test</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+    <servlet-name>test2</servlet-name>
+    <servlet-class>test2</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>test2</servlet-name>
+    <url-pattern>/test2</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>StaffReg</servlet-name>
+    <servlet-class>StaffReg</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>StaffReg</servlet-name>
+    <url-pattern>/StaffReg</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>StaffRegError</servlet-name>
+    <servlet-class>StaffRegError</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>StaffRegError</servlet-name>
+    <url-pattern>/StaffRegError</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>StaffEdit</servlet-name>
+    <servlet-class>StaffEdit</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>StaffEdit</servlet-name>
+    <url-pattern>/StaffEdit</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+    <servlet-name>AttendanceList</servlet-name>
+    <servlet-class>AttendanceList</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>AttendanceList</servlet-name>
+    <url-pattern>/AttendanceList</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>NextMonth</servlet-name>
+    <servlet-class>NextMonth</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>NextMonth</servlet-name>
+    <url-pattern>/NextMonth</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+    <servlet-name>PrevMonth</servlet-name>
+    <servlet-class>PrevMonth</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>PrevMonth</servlet-name>
+    <url-pattern>/PrevMonth</url-pattern>
+  </servlet-mapping>
+  
+</web-app>
