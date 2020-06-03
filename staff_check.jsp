@@ -48,28 +48,19 @@
 
   <span class="col-2"></span>
   <span class="col-1"><b>お名前</b></span>
-  <%
-    String name = (String)session.getAttribute("Name");
-    out.print(name);
-  %>
+  <%=request.getAttribute("Name") %>
   <br>
    
   <span class="col-2"></span>
   <span class="col-1"><b>メールアドレス</b></span>
-  <%
-    String mailaddress = (String)session.getAttribute("Mailaddress");
-    out.print(mailaddress);
-  %>
+  <%=request.getAttribute("Mailaddress") %>
   <br>
   
   <span class="col-2"></span>
   <span class="col-1"><b>パスワード</b></span>
-  <%
-    String pass = (String)session.getAttribute("Pass");
-    out.print(pass);
-  %>
+  <%=request.getAttribute("Pass") %>
   
-  <div class="right"><button type=“button” onclick="location.href='/attendance/staff_reg_complete.jsp'">登録する</button></div> 
+  <div class="right"><button type=“button” onclick="location.href='/attendance/StaffCheck?name=<%=request.getAttribute("Name")%>&mailaddress=<%=request.getAttribute("Mailaddress")%>&password=<%=request.getAttribute("Password")%>'">登録する</button></div> 
   
 </body>
 </html>

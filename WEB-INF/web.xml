@@ -106,4 +106,24 @@
     <url-pattern>/NameGet</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>StaffCheck</servlet-name>
+    <servlet-class>StaffCheck</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>StaffCheck</servlet-name>
+    <url-pattern>/StaffCheck</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AttendanceDelete</servlet-name>
+    <servlet-class>AttendanceDelete</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>AttendanceDelete</servlet-name>
+    <url-pattern>/AttendanceDelete</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

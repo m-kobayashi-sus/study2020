@@ -44,7 +44,7 @@
 
   <h2><center>‹Î‘Ó“o˜^</center></h2>
   
-  <form action = "/attendance/AttendanceEditor" method="POST" >
+  <form action = "/attendance/AttendanceEditor?id=<%= request.getAttribute("id") %>" method="POST" >
   <div>
     <div>
       <span class="col-2"></span>
@@ -113,8 +113,6 @@
   <div class="right"><input type="submit" value="“o˜^‚·‚é"></div>
   </form>
 
-
-
-
+  <%= request.getAttribute("id") %>
 </body>
 </html>
