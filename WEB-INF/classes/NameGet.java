@@ -51,8 +51,10 @@ public class NameGet extends HttpServlet{
       rs = db.getResultSet(sql);
       //ÉfÅ[É^ÇÃéÊìæ
       while (rs.next()) {
-        String Name  = rs.getString("name");
-        request.setAttribute("name",Name);                   
+        String n  = rs.getString("name");
+
+        request.setAttribute("name",n);                   
+
         getServletContext().getRequestDispatcher("/attendanceEditor.jsp").forward(request, response);
       }
       
@@ -76,5 +78,7 @@ public class NameGet extends HttpServlet{
   protected void doPost(HttpServletRequest request,HttpServletResponse response)throws ServletException, IOException {
     processRequest(request, response);
   }
+
+
 
 }

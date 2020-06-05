@@ -29,13 +29,14 @@ public class AttendanceList extends HttpServlet{
     ResultSet rs = null;
     try{
       db.open();
-      out.println("接続成功a");
+      out.println("接続成功");
       
       int nextMonth = Integer.parseInt(month) + 1;
       //実行するSQL
       String sql = "SELECT * FROM attendance WHERE employee_id = "+ name +" AND date >= '"+ year +"-"+ month +"-01' AND date <'"+ year +"-"+ nextMonth +"-01'";
       out.println(sql);
       rs = db.getResultSet(sql);
+      out.println(rs);
       //データの取得
       while (rs.next()) {
         int id = rs.getInt("id");

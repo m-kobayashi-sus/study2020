@@ -1,36 +1,67 @@
-import java.io.*;
-import java.net.*;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.ResultSet;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import db.DBAccesser;
+
 
 public class StaffRegError extends HttpServlet {
-  
+
   protected void processRequest(HttpServletRequest request,HttpServletResponse response)
       throws ServletException, IOException {
+
     request.setCharacterEncoding("Shift_JIS");
-    String name = (String)request.getParameter("name");                 //ƒtƒH[ƒ€‚©‚ç’l‚ðŽæ“¾
-    String mailaddress = (String)request.getParameter("mailaddress");  
-    String password = (String)request.getParameter("password");                     
- 
+	response.setCharacterEncoding("Shift_JIS");
+    String name = (String)request.getParameter("name");                 //ï¿½tï¿½Hï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½lï¿½ï¿½ï¿½æ“¾
+    String mailaddress = (String)request.getParameter("mailaddress");
+    String password = (String)request.getParameter("password");
+    PrintWriter out = response.getWriter();
     response.setCharacterEncoding("UTF-8");
-    HttpSession session = request.getSession();
-    session.setAttribute("Password",password);    //ƒZƒbƒVƒ‡ƒ“‚É’l‚ðÝ’è
-    session.setAttribute("Name",name);             
-    session.setAttribute("Mailaddress",mailaddress); 
+
     ServletContext context = this.getServletContext();
     if (name.length() >= 2 && name.length() <= 20 &&
-        password.length() >= 8 && password.length() <= 64 && isHanStr(password) == true && 
+        password.length() >= 8 && password.length() <= 64 && isHanStr(password) == true &&
         mailaddress.length() <= 50 && isEmpty(mailaddress) == false && isHanStr(mailaddress) == true){
-      RequestDispatcher dispatcher = context.getRequestDispatcher("/staff_reg_complete.jsp"); //Š®—¹‰æ–Ê‚Ö‘JˆÚ
+        DBAccesser db = new DBAccesser();
+        ResultSet rs = null;
+        try{
+          db.open();
+          out.println("æŽ¥ç¶šæˆåŠŸ");
+
+          //ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½SQL
+          String sql = "";
+          sql = "insert into employee (name, mail, pass, delete_flag) values ('"+name+"', '"+mailaddress+"', '"+password+"', 'FALSE')";
+          out.println(sql);
+          db.execute(sql);
+          getServletContext().getRequestDispatcher("/staff_reg_complete.jsp").forward(request, response);
+
+          }catch(Exception e){
+            e.printStackTrace();
+          }finally{
+            try{
+              db.close();
+            }catch(Exception e){
+              e.printStackTrace();
+            }
+
+          }
+
+      RequestDispatcher dispatcher = context.getRequestDispatcher("/staff_reg_complete.jsp"); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê‚Ö‘Jï¿½ï¿½
       dispatcher.forward(request,response);
     }else{
-      RequestDispatcher dispatcher = context.getRequestDispatcher("/staff_reg_error.jsp"); //ƒGƒ‰[‰æ–Ê‚Ö‘JˆÚ
+      RequestDispatcher dispatcher = context.getRequestDispatcher("/staff_reg_error.jsp"); //ï¿½Gï¿½ï¿½ï¿½[ï¿½ï¿½Ê‚Ö‘Jï¿½ï¿½
       dispatcher.forward(request,response);
     }
 
   }
-  
+
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     processRequest(request, response);
@@ -41,7 +72,7 @@ public class StaffRegError extends HttpServlet {
     processRequest(request, response);
   }
 
-  public static boolean isEmpty(String value) { //•¶Žš—ñ‚ªnullA’·‚³‚ª0‚Ìê‡‚ðŒŸo
+  public static boolean isEmpty(String value) { //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½nullï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½Ìê‡ï¿½ï¿½ï¿½ï¿½ï¿½o
     if ( value == null || value.length() == 0 ){
       return true;
     }else{
@@ -49,7 +80,7 @@ public class StaffRegError extends HttpServlet {
     }
   }
 
-  public static boolean isHanStr(String s){ //”¼Šp‰p”Žš‚Ì‚Ý‚Ìê‡true•Ô‚·
+  public static boolean isHanStr(String s){ //ï¿½ï¿½ï¿½pï¿½pï¿½ï¿½ï¿½ï¿½ï¿½Ì‚Ý‚Ìê‡trueï¿½Ô‚ï¿½
     if (!s.matches("^[0-9a-zA-Z]+$")) {
       return false;
     }else{

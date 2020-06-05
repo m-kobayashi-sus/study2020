@@ -19,7 +19,7 @@ public class StaffReg extends HttpServlet {
     }                       
 
     response.setCharacterEncoding("UTF-8");
-    request.setAttribute("Password",password); 
+    request.setAttribute("Password",password); //セッションに値を設定
     request.setAttribute("Name",name);                   
     request.setAttribute("Mailaddress",mailaddress);
     request.setAttribute("Pass",pass);              

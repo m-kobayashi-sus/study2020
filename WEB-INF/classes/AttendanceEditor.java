@@ -1,14 +1,13 @@
-import db.DBAccesser;
-import java.io.*;
-import javax.servlet.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import javax.servlet.http.*;
-import java.util.*; 
-import java.text.*; 
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import db.DBAccesser;
 
 public class AttendanceEditor extends HttpServlet{
 
@@ -18,7 +17,7 @@ public class AttendanceEditor extends HttpServlet{
     request.setCharacterEncoding("Shift_JIS");
     response.setCharacterEncoding("Shift_JIS");
     PrintWriter out = response.getWriter();
-    String name = (String)request.getParameter("name"); // ƒtƒH[ƒ€‚©‚ç’l‚ğæ“¾ 
+    String name = (String)request.getParameter("name"); // ï¿½tï¿½Hï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½lï¿½ï¿½ï¿½æ“¾
     String year = (String)request.getParameter("year");
     String month = (String)request.getParameter("month");
     String day = (String)request.getParameter("day");
@@ -29,13 +28,13 @@ public class AttendanceEditor extends HttpServlet{
     String breakTime = (String)request.getParameter("break_time");
     String detail = (String)request.getParameter("detail");
     int id = 0;
-    
+
     DBAccesser db = new DBAccesser();
     ResultSet rs = null;
     try{
       db.open();
-      out.println("Ú‘±¬Œ÷");
-      //Às‚·‚éSQL
+      out.println("ï¿½Ú‘ï¿½ï¿½ï¿½ï¿½ï¿½");
+      //ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½SQL
       rs = db.getResultSet("SELECT * FROM employee WHERE name ='" +name+"'" );
       while (rs.next()) {
         id = rs.getInt("id");
@@ -51,7 +50,7 @@ public class AttendanceEditor extends HttpServlet{
       out.println(sql);
       db.execute(sql);
       getServletContext().getRequestDispatcher("/complete.jsp").forward(request, response);
-      
+
       }catch(Exception e){
         e.printStackTrace();
       }finally{
@@ -60,11 +59,11 @@ public class AttendanceEditor extends HttpServlet{
         }catch(Exception e){
           e.printStackTrace();
         }
-        
+
       }
-    
+
   }
-     
+
   protected void doGet(HttpServletRequest request,HttpServletResponse response)throws ServletException, IOException {
     processRequest(request, response);
   }

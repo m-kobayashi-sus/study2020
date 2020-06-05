@@ -24,7 +24,7 @@
     display: inline-block;
     width: 200px;
   }
-  
+
   .col-2 {
     display: inline-block;
     width: 50px;
@@ -37,8 +37,8 @@
 
   <header>
     <div class="blue">
-      <div class="right white"><a href="/attendance/staff_list.jsp"> 社員を登録する </a></div>
-      <div class="left white"><a href="/attendance/attendanceList.jsp"> 勤怠管理システム </a></div>
+      <div class="right white"><a href="/Attendance/staff_list.jsp"> 社員を登録する </a></div>
+      <div class="left white"><a href="/Attendance/attendanceList.jsp"> 勤怠管理システム </a></div>
     </div>
   </header>
 
@@ -50,17 +50,17 @@
   <span class="col-1"><b>お名前</b></span>
   <%=request.getAttribute("Name") %>
   <br>
-   
+
   <span class="col-2"></span>
   <span class="col-1"><b>メールアドレス</b></span>
   <%=request.getAttribute("Mailaddress") %>
   <br>
-  
+
   <span class="col-2"></span>
   <span class="col-1"><b>パスワード</b></span>
   <%=request.getAttribute("Pass") %>
-  
-  <div class="right"><button type=“button” onclick="location.href='/attendance/StaffCheck?name=<%=request.getAttribute("Name")%>&mailaddress=<%=request.getAttribute("Mailaddress")%>&password=<%=request.getAttribute("Password")%>'">登録する</button></div> 
-  
+
+  <div class="right"><button type=“button” onclick="location.href='/Attendance/StaffCheck?name=<%=request.getAttribute("Name")%>&mailaddress=<%=request.getAttribute("Mailaddress")%>&password=<%=request.getAttribute("Password")%>'">登録する</button></div>
+
 </body>
 </html>

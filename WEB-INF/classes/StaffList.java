@@ -1,16 +1,15 @@
-import db.DBAccesser;
-import java.io.*;
-import javax.servlet.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import javax.servlet.http.*;
-import java.util.*; 
-import java.text.*; 
 
-public class StaffCheck extends HttpServlet{
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import db.DBAccesser;
+
+public class StaffList extends HttpServlet{
 
   public void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws IOException, ServletException{
@@ -18,23 +17,31 @@ public class StaffCheck extends HttpServlet{
     request.setCharacterEncoding("Shift_JIS");
     response.setCharacterEncoding("Shift_JIS");
     PrintWriter out = response.getWriter();
-    String name = (String)request.getParameter("name"); // ƒtƒH[ƒ€‚©‚ç’l‚ğæ“¾ 
-    String mailaddress = (String)request.getParameter("mailaddress");
-    String password = (String)request.getParameter("password");
-
     DBAccesser db = new DBAccesser();
     ResultSet rs = null;
     try{
       db.open();
-      out.println("Ú‘±¬Œ÷");
-    
-      //Às‚·‚éSQL
-      String sql = "";
-      sql = "insert into employee (name, mail, pass, delete_flag) values ('"+name+"', '"+mailaddress+"', '"+password+"', 'FALSE')";
+      out.println("ï¿½Ú‘ï¿½ï¿½ï¿½ï¿½ï¿½");
+
+
+      String sql = "SELECT * FROM employee" ;
       out.println(sql);
-      db.execute(sql);
-      getServletContext().getRequestDispatcher("/staff_reg_complete.jsp").forward(request, response);
-      
+      rs = db.getResultSet(sql);
+      out.println(rs);
+      //ï¿½fï¿½[ï¿½^ï¿½Ìæ“¾
+      while (rs.next()) {
+        int id = rs.getInt("id");
+        String name  = rs.getString("name");
+        String mail = rs.getString("mail");
+
+        //ï¿½ï¿½ï¿½Mï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½Ìİ’ï¿½
+        request.setAttribute("mail",mail);
+        request.setAttribute("name",name);
+        request.setAttribute("id",id);
+
+        getServletContext().getRequestDispatcher("/staff_list.jsp").forward(request, response);
+      }
+
       }catch(Exception e){
         e.printStackTrace();
       }finally{
@@ -43,11 +50,10 @@ public class StaffCheck extends HttpServlet{
         }catch(Exception e){
           e.printStackTrace();
         }
-        
+
       }
-    
   }
-     
+
   protected void doGet(HttpServletRequest request,HttpServletResponse response)throws ServletException, IOException {
     processRequest(request, response);
   }

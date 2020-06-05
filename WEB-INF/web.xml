@@ -126,4 +126,24 @@
     <url-pattern>/AttendanceDelete</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>StaffList</servlet-name>
+    <servlet-class>StaffList</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>StaffList</servlet-name>
+    <url-pattern>/StaffList</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>StaffDelete</servlet-name>
+    <servlet-class>StaffDelete</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>StaffDelete</servlet-name>
+    <url-pattern>/StaffDelete</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

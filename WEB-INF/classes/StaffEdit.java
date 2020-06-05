@@ -1,42 +1,44 @@
-import java.io.*;
-import java.net.*;
+import java.io.IOException;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class StaffEdit extends HttpServlet {
-  
+
   protected void processRequest(HttpServletRequest request,HttpServletResponse response)
       throws ServletException, IOException {
     request.setCharacterEncoding("Shift_JIS");
-    String name = (String)request.getParameter("name");        //ƒtƒH[ƒ€‚©‚ç’l‚ğæ“¾
-    String mailaddress = (String)request.getParameter("mailaddress");    
+    String name = (String)request.getParameter("name");        //ï¿½tï¿½Hï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½lï¿½ï¿½ï¿½æ“¾
+    String mailaddress = (String)request.getParameter("mailaddress");
     String password = (String)request.getParameter("change_password");
     String pass = "";
- 
-    for (int i=0; i<password.length(); i++){ //ƒpƒXƒ[ƒh‚ğ*‚É•ÏŠ·
+
+    for (int i=0; i<password.length(); i++){ //ï¿½pï¿½Xï¿½ï¿½ï¿½[ï¿½hï¿½ï¿½*ï¿½É•ÏŠï¿½
       pass = pass + "*" ;
-    }     
+    }
 
     response.setCharacterEncoding("UTF-8");
-    HttpSession session = request.getSession();
-    session.setAttribute("Password",password);  //ƒZƒbƒVƒ‡ƒ“‚É’l‚ğİ’è
-    session.setAttribute("Name",name);
-    session.setAttribute("Mailaddress",mailaddress);
-     session.setAttribute("Pass",pass); 
+    request.setAttribute("Password",password);  //ï¿½Zï¿½bï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½É’lï¿½ï¿½İ’ï¿½
+    request.setAttribute("Name",name);
+    request.setAttribute("Mailaddress",mailaddress);
+    request.setAttribute("Pass",pass);
     ServletContext context = this.getServletContext();
     if (name.length() >= 2 && name.length() <= 20 &&
-        password.length() >= 8 && password.length() <= 64 && isHanStr(password) == true && 
+        password.length() >= 8 && password.length() <= 64 && isHanStr(password) == true &&
         mailaddress.length() <= 50 && isEmpty(mailaddress) == false && isHanStr(mailaddress) == true){
-      RequestDispatcher dispatcher = context.getRequestDispatcher("/staff_check.jsp");  //Šm”F‰æ–Ê‚Ö‘JˆÚ
+      RequestDispatcher dispatcher = context.getRequestDispatcher("/staff_check.jsp");  //ï¿½mï¿½Fï¿½ï¿½Ê‚Ö‘Jï¿½ï¿½
       dispatcher.forward(request,response);
     }else{
-      RequestDispatcher dispatcher = context.getRequestDispatcher("/staff_reg_error.jsp"); //ƒGƒ‰[‰æ–Ê‚Ö‘JˆÚ
+      RequestDispatcher dispatcher = context.getRequestDispatcher("/staff_reg_error.jsp"); //ï¿½Gï¿½ï¿½ï¿½[ï¿½ï¿½Ê‚Ö‘Jï¿½ï¿½
       dispatcher.forward(request,response);
     }
 
   }
-  
+
   protected void doGet(HttpServletRequest request,HttpServletResponse response)
       throws ServletException, IOException {
     processRequest(request, response);
@@ -47,7 +49,7 @@ public class StaffEdit extends HttpServlet {
     processRequest(request, response);
   }
 
-  public static boolean isEmpty(String value) { //•¶š—ñ‚ªnullA’·‚³‚ª0‚Ìê‡‚ğŒŸo
+  public static boolean isEmpty(String value) { //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½nullï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½Ìê‡ï¿½ï¿½ï¿½ï¿½ï¿½o
     if ( value == null || value.length() == 0 ){
       return true;
     }else{
@@ -55,7 +57,7 @@ public class StaffEdit extends HttpServlet {
     }
   }
 
-  public static boolean isHanStr(String s){ //”¼Šp‰p”š‚Ì‚İ‚Ìê‡true•Ô‚·
+  public static boolean isHanStr(String s){ //ï¿½ï¿½ï¿½pï¿½pï¿½ï¿½ï¿½ï¿½ï¿½Ì‚İ‚Ìê‡trueï¿½Ô‚ï¿½
     if (!s.matches("^[0-9a-zA-Z]+$")) {
       return false;
     }else{

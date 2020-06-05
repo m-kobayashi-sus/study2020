@@ -28,14 +28,14 @@
 
   <header>
     <div class="blue">
-      <div class="right white"><a href="/attendance/staff_list.jsp"> 社員を登録する </a></div>
-      <div class="left white"><a href="/attendance/attendanceList.jsp"> 勤怠管理システム </a></div>
+      <div class="right white"><a href="/Attendance/staff_list.jsp"> 社員を登録する </a></div>
+      <div class="left white"><a href="/Attendance/attendanceList.jsp"> 勤怠管理システム </a></div>
     </div>
   </header>
 
   <h2><center>登録完了</center></h2>
   <p><center>社員の登録を行いました。</center></p>
-  <center><button type=“button” onclick="location.href='/attendance/attendanceList.jsp'">戻る</button></center>
+  <center><button type=“button” onclick="location.href='/Attendance/attendanceList.jsp'">戻る</button></center>
 
 </body>
 </html>
