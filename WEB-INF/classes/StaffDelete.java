@@ -17,15 +17,14 @@ public class StaffDelete extends HttpServlet{
     response.setCharacterEncoding("Shift_JIS");
     PrintWriter out = response.getWriter();
     String id = (String)request.getParameter("id");
-
+　　　
 
     DBAccesser db = new DBAccesser();
     try{
       db.open();
-      out.println("�ڑ�����");
+      out.println("接続成功");
       out.println(id);
-      //���s����SQL
-      String sql = "delete from employee where id = 20";
+      String sql = "delete from employee where id =" + id;
       out.println(sql);
       db.execute(sql);
       getServletContext().getRequestDispatcher("/staff_list.jsp").forward(request, response);

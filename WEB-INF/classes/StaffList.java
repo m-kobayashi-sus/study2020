@@ -21,20 +21,18 @@ public class StaffList extends HttpServlet{
     ResultSet rs = null;
     try{
       db.open();
-      out.println("�ڑ�����");
+      out.println("接続成功");
 
 
-      String sql = "SELECT * FROM employee" ;
+      String sql = "SELECT * FROM employee WHERE delete_falg = 'FALSE'" ;
       out.println(sql);
       rs = db.getResultSet(sql);
       out.println(rs);
-      //�f�[�^�̎擾
       while (rs.next()) {
         int id = rs.getInt("id");
         String name  = rs.getString("name");
         String mail = rs.getString("mail");
 
-        //���M����f�[�^�̐ݒ�
         request.setAttribute("mail",mail);
         request.setAttribute("name",name);
         request.setAttribute("id",id);

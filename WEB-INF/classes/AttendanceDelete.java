@@ -22,9 +22,8 @@ public class AttendanceDelete extends HttpServlet{
     DBAccesser db = new DBAccesser();
     try{
       db.open();
-      out.println("�ڑ�����");
+      out.println("接続成功");
       out.println(id);
-      //���s����SQL
       String sql = "delete from attendance where id ="+id;
       out.println(sql);
       db.execute(sql);

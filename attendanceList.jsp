@@ -117,16 +117,37 @@
 
     <table border="1">
       <tr>
-        <th width="120">日付</th><th width="120">開始</th><th width="120">終了</th><th width="120">休憩</th><th width="120">勤務時間</th><th width="120">作業内容</th><th width="120">編集</th>
+        <th width="120">日付</th><th width="120">開始</th>
+        <th width="120">終了</th><th width="120">休憩</th>
+        <th width="120">勤務時間</th><th width="120">作業内容</th>
+        <th width="120">編集</th>
       </tr>
       <tr>
-        <td><%= request.getAttribute("date") %></td><td><%= request.getAttribute("start_time") %></td><td><%= request.getAttribute("end_time") %><br></td><td>  <%= request.getAttribute("break_time") %></td><td><%= request.getAttribute("diffTime") %>:00</td><td><%= request.getAttribute("detail") %></td><td><button type=“button” onclick="location.href='/Attendance/NameGet?year=<%=request.getAttribute("Year") %>&name=<%=request.getAttribute("Name") %>&month=<%=request.getAttribute("Month") %>&date=<%=request.getAttribute("date") %>&id=<%=request.getAttribute("id")%>'">編集</button>&nbsp;<button type="button" onClick="disp()">削除</button></td>
+        <td><%= request.getAttribute("date") %></td>
+        <td><%= request.getAttribute("start_time") %></td>
+        <td><%= request.getAttribute("end_time") %><br></td>
+        <td>  <%= request.getAttribute("break_time") %></td>
+        <td><%= request.getAttribute("diffTime") %>:00</td>
+        <td><%= request.getAttribute("detail") %></td>
+        <td><button type=“button” onclick="location.href='/Attendance/NameGet?year=<%=request.getAttribute("Year") %>&name=<%=request.getAttribute("Name") %>&month=<%=request.getAttribute("Month") %>&date=<%=request.getAttribute("date") %>&id=<%=request.getAttribute("id")%>'">編集</button>&nbsp;<button type="button" onClick="disp()">削除</button></td>
       </tr>
       <tr>
-        <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
       </tr>
       <tr>
-        <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
       </tr>
     </table>
 

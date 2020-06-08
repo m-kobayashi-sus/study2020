@@ -29,8 +29,7 @@ public class StaffCheck extends HttpServlet{
       out.println("Ú‘±¬Œ÷");
     
       //Às‚·‚éSQL
-      String sql = "";
-      sql = "insert into employee (name, mail, pass, delete_flag) values ('"+name+"', '"+mailaddress+"', '"+password+"', 'FALSE')";
+      String sql = "insert into employee (name, mail, pass, delete_flag) values ('"+name+"', '"+mailaddress+"', '"+password+"', 'FALSE')";
       out.println(sql);
       db.execute(sql);
       getServletContext().getRequestDispatcher("/staff_reg_complete.jsp").forward(request, response);
