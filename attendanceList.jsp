@@ -126,7 +126,7 @@
         <td><%= request.getAttribute("date") %></td>
         <td><%= request.getAttribute("start_time") %></td>
         <td><%= request.getAttribute("end_time") %><br></td>
-        <td>  <%= request.getAttribute("break_time") %></td>
+        <td><%=request.getAttribute("break_time") %></td>
         <td><%= request.getAttribute("diffTime") %>:00</td>
         <td><%= request.getAttribute("detail") %></td>
         <td><button type=gbuttonh onclick="location.href='/Attendance/NameGet?year=<%=request.getAttribute("Year") %>&name=<%=request.getAttribute("Name") %>&month=<%=request.getAttribute("Month") %>&date=<%=request.getAttribute("date") %>&id=<%=request.getAttribute("id")%>'">•ÒW</button>&nbsp;<button type="button" onClick="disp()">íœ</button></td>

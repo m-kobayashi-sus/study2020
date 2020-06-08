@@ -24,7 +24,7 @@ public class StaffList extends HttpServlet{
       out.println("接続成功");
 
 
-      String sql = "SELECT * FROM employee WHERE delete_falg = 'FALSE'" ;
+      String sql = "SELECT * FROM employee WHERE delete_flag = 'FALSE'" ;
       out.println(sql);
       rs = db.getResultSet(sql);
       out.println(rs);
