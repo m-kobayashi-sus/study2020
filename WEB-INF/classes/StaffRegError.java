@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -19,9 +18,10 @@ public class StaffRegError extends HttpServlet {
 
     request.setCharacterEncoding("Shift_JIS");
 	response.setCharacterEncoding("Shift_JIS");
-    String name = (String)request.getParameter("name");                 //�t�H�[������l���擾
+    String name = (String)request.getParameter("name");
     String mailaddress = (String)request.getParameter("mailaddress");
     String password = (String)request.getParameter("password");
+    String id = (String)request.getParameter("id");
     PrintWriter out = response.getWriter();
     response.setCharacterEncoding("UTF-8");
 
@@ -29,34 +29,36 @@ public class StaffRegError extends HttpServlet {
     if (name.length() >= 2 && name.length() <= 20 &&
         password.length() >= 8 && password.length() <= 64 && isHanStr(password) == true &&
         mailaddress.length() <= 50 && isEmpty(mailaddress) == false && isHanStr(mailaddress) == true){
-        DBAccesser db = new DBAccesser();
-        ResultSet rs = null;
-        try{
-          db.open();
-          out.println("接続成功");
-
-          //���s����SQL
-          String sql = "";
+      DBAccesser db = new DBAccesser();
+      try{
+        db.open();
+        out.println("接続成功");
+        String sql = "";
+        int ID = Integer.parseInt(request.getParameter("id"));
+        if(ID==0) {
           sql = "insert into employee (name, mail, pass, delete_flag) values ('"+name+"', '"+mailaddress+"', '"+password+"', 'FALSE')";
-          out.println(sql);
-          db.execute(sql);
-          getServletContext().getRequestDispatcher("/staff_reg_complete.jsp").forward(request, response);
+        }else {
+          sql = "update employee set name = '"+name+"', mail = '"+mailaddress+"', pass = '"+password+"' where id ="+ID;
+        }
+        out.println(sql);
+        db.execute(sql);
+        getServletContext().getRequestDispatcher("/staff_reg_complete.jsp").forward(request, response);
 
+        }catch(Exception e){
+          e.printStackTrace();
+        }finally{
+          try{
+            db.close();
           }catch(Exception e){
             e.printStackTrace();
-          }finally{
-            try{
-              db.close();
-            }catch(Exception e){
-              e.printStackTrace();
-            }
-
           }
 
-      RequestDispatcher dispatcher = context.getRequestDispatcher("/staff_reg_complete.jsp"); //������ʂ֑J��
+        }
+      RequestDispatcher dispatcher = context.getRequestDispatcher("/staff_reg_complete.jsp");
       dispatcher.forward(request,response);
     }else{
-      RequestDispatcher dispatcher = context.getRequestDispatcher("/staff_reg_error.jsp"); //�G���[��ʂ֑J��
+      request.setAttribute("id",id);
+      RequestDispatcher dispatcher = context.getRequestDispatcher("/staff_reg_error.jsp");
       dispatcher.forward(request,response);
     }
 

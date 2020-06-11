@@ -60,7 +60,7 @@
   <span class="col-1"><b>ƒpƒXƒ[ƒh</b></span>
   <%=request.getAttribute("Pass") %>
 
-  <div class="right"><button type=gbuttonh onclick="location.href='/Attendance/StaffCheck?name=<%=request.getAttribute("Name")%>&mailaddress=<%=request.getAttribute("Mailaddress")%>&password=<%=request.getAttribute("Password")%>'">“o˜^‚·‚é</button></div>
-
+  <div class="right"><button type=gbuttonh onclick="location.href='/Attendance/StaffCheck?name=<%=request.getAttribute("Name")%>&mailaddress=<%=request.getAttribute("Mailaddress")%>&password=<%=request.getAttribute("Password")%>&id=<%=request.getAttribute("id") %>'">“o˜^‚·‚é</button></div>
+<%=request.getAttribute("id") %>
 </body>
 </html>

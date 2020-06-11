@@ -1,12 +1,15 @@
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.DataBean;
 import db.DBAccesser;
 
 public class StaffList extends HttpServlet{
@@ -22,23 +25,16 @@ public class StaffList extends HttpServlet{
     try{
       db.open();
       out.println("接続成功");
-
-
-      String sql = "SELECT * FROM employee WHERE delete_flag = 'FALSE'" ;
+      String sql = "SELECT * FROM employee WHERE delete_flag = 'FALSE' " ;
       out.println(sql);
       rs = db.getResultSet(sql);
-      out.println(rs);
+      List<DataBean> list = new ArrayList<DataBean>();
       while (rs.next()) {
-        int id = rs.getInt("id");
-        String name  = rs.getString("name");
-        String mail = rs.getString("mail");
-
-        request.setAttribute("mail",mail);
-        request.setAttribute("name",name);
-        request.setAttribute("id",id);
-
-        getServletContext().getRequestDispatcher("/staff_list.jsp").forward(request, response);
+        list.add(new DataBean(rs.getInt("id"),rs.getString("name"), rs.getString("mail")));
+        request.setAttribute("dbdata", list);
       }
+
+      getServletContext().getRequestDispatcher("/staff_list.jsp").forward(request, response);
 
       }catch(Exception e){
         e.printStackTrace();

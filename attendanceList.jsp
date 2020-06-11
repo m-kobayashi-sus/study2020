@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=Shift_JIS" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html>
 <head>
@@ -48,10 +49,10 @@
 
 <script type="text/javascript">
 
-  function disp(){
+  function disp(id){
     // 確認ダイアログの表示
     if(window.confirm('勤怠データが削除されます。')){
-      location.href = "/Attendance/AttendanceDelete?id=<%=request.getAttribute("id") %>"; // OK時の処理
+      location.href = "/Attendance/AttendanceDelete?id=" + id; // OK時の処理
     }else{
       window.alert('キャンセルされました'); // 警告ダイアログを表示(キャンセル時の処理)
     }
@@ -64,7 +65,7 @@
   <header>
     <div class="blue">
       <div class="right white"><a href="/Attendance/StaffList"> 社員を登録する </a></div>
-      <div class="left white"><a href="/Attendance/attendanceList.jsp"> 勤怠管理システム </a></div>
+      <div class="left white"><a href="/Attendance/TOP"> 勤怠管理システム </a></div>
     </div>
   </header>
 
@@ -73,20 +74,15 @@
   <form action = "/Attendance/AttendanceList" method="POST" >
     <select name="name">
       <option value="">社員を選択</option>
-      <option value="1">CSV太郎</option>
-      <option value="2">CSV次郎</option>
-      <option value="3">CSV三郎</option>
-      <option value="4">CSV四郎</option>
-      <option value="5">CSV五郎</option>
-      <option value="6">CSV六郎</option>
+      <c:forEach items="${dbdata2}" var="dbdataLine">
+        <option value=${dbdataLine.id}>${dbdataLine.name}</option>
+      </c:forEach>
     </select>
     <br>
     <select name="year">
-      <option value="2020">2020</option>
-      <option value="2019">2019</option>
-      <option value="2018">2018</option>
-      <option value="2017">2017</option>
-      <option value="2016">2016</option>
+      <c:forEach items="${dbdata}" var="dbdataLine">
+        <option value=${dbdataLine}>${dbdataLine}</option>
+      </c:forEach>
     </select>&nbsp;年
 
     <select name="month">
@@ -117,42 +113,23 @@
 
     <table border="1">
       <tr>
-        <th width="120">日付</th><th width="120">開始</th>
-        <th width="120">終了</th><th width="120">休憩</th>
-        <th width="120">勤務時間</th><th width="120">作業内容</th>
-        <th width="120">編集</th>
+        <th width="120">日付</th><th width="120">開始</th><th width="120">終了</th><th width="120">休憩</th><th width="120">勤務時間</th><th width="120">作業内容</th><th width="120">編集</th>
       </tr>
+    <c:forEach items="${dbdata3}" var="dbdataLine">
       <tr>
-        <td><%= request.getAttribute("date") %></td>
-        <td><%= request.getAttribute("start_time") %></td>
-        <td><%= request.getAttribute("end_time") %><br></td>
-        <td><%=request.getAttribute("break_time") %></td>
-        <td><%= request.getAttribute("diffTime") %>:00</td>
-        <td><%= request.getAttribute("detail") %></td>
-        <td><button type=“button” onclick="location.href='/Attendance/NameGet?year=<%=request.getAttribute("Year") %>&name=<%=request.getAttribute("Name") %>&month=<%=request.getAttribute("Month") %>&date=<%=request.getAttribute("date") %>&id=<%=request.getAttribute("id")%>'">編集</button>&nbsp;<button type="button" onClick="disp()">削除</button></td>
+        <td>${dbdataLine.date}</td>
+        <td>${dbdataLine.startTime}</td>
+        <td>${dbdataLine.endTime}</td>
+        <td>${dbdataLine.breakTime}</td>
+        <td>${dbdataLine.diffTime}</td>
+        <td>${dbdataLine.detail}</td>
+        <td><button type=“button” onclick="location.href='/Attendance/NameGet?name=<%=request.getAttribute("Name") %>&date=${dbdataLine.date}&id=${dbdataLine.ID}&start_time=${dbdataLine.startTime}&end_time=${dbdataLine.endTime}&break_time=${dbdataLine.breakTime}&detail=${dbdataLine.detail}'">編集</button>&nbsp;<button type="button" onClick="disp('${dbdataLine.ID}')">削除</button></td>
       </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
+    </c:forEach>
     </table>
 
     <p class="right"><button type=“button” onclick="location.href='/Attendance/NameGet?name=<%=request.getAttribute("Name") %>&id=0'">勤怠を登録する</button></p>
-<%=request.getAttribute("id") %>
+
   <% } %>
 
 </body>

@@ -46,7 +46,7 @@
 
   <p style="border-style: solid; border-width: 1px; padding: 5px 5px 5px 5px;background-color:#FF99CC;">・名前を入力してください。<br>・メールアドレスを入力してください。</p>
 
-  <form action="/Attendance/StaffRegError" method="POST"  style="display: inline">
+  <form action="/Attendance/StaffRegError?id=<%=request.getAttribute("id") %>" method="POST"  style="display: inline">
     <div>
       <div>
         <span class="col-2"></span>
@@ -70,6 +70,6 @@
     <div class="right"><input type="submit" value="登録する"></div>
   </form>
 
-
+<%=request.getAttribute("id") %>
 </body>
 </html>

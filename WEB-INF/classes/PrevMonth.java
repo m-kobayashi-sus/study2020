@@ -1,14 +1,19 @@
-import db.DBAccesser;
-import java.io.*;
-import javax.servlet.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import javax.servlet.http.*;
-import java.util.*; 
-import java.text.*; 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.TimeZone;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import bean.DataBean;
+import db.DBAccesser;
 
 public class PrevMonth extends HttpServlet{
 
@@ -18,11 +23,12 @@ public class PrevMonth extends HttpServlet{
     request.setCharacterEncoding("Shift_JIS");
     response.setCharacterEncoding("Shift_JIS");
     PrintWriter out = response.getWriter();
-    String name = (String)request.getParameter("name"); // ƒtƒH[ƒ€‚©‚ç’l‚ğæ“¾ 
+    String name = (String)request.getParameter("name");
     String year = (String)request.getParameter("year");
     String month = (String)request.getParameter("month");
-    int prev = Integer.parseInt(month) - 1; //‘OŒ‚ğw’è
-    month = String.valueOf(prev); 
+    int nextMonth;
+    int prev = Integer.parseInt(month) - 1;
+
     if (name.equals("")){
       getServletContext().getRequestDispatcher("/attendanceList.jsp").forward(request, response);
     }
@@ -31,14 +37,39 @@ public class PrevMonth extends HttpServlet{
     ResultSet rs = null;
     try{
       db.open();
-      out.println("Ú‘±¬Œ÷a");
-      
-      int nextMonth = Integer.parseInt(month) + 1;
-      //Às‚·‚éSQL
-      String sql = "SELECT * FROM attendance WHERE employee_id = "+ name +" AND date >= '"+ year +"-"+ month +"-01' AND date <'"+ year +"-"+ nextMonth +"-01'";
+      out.println("æ¥ç¶šæˆåŠŸ");
+      String sql;
+
+      rs = db.getResultSet("SELECT * FROM attendance ");
+      List<String> list = new ArrayList<String>();
+      while (rs.next()) {
+    	if (!list.contains(rs.getString("date").substring(0, 4))) {
+          list.add(rs.getString("date").substring(0,4));
+    	}
+        request.setAttribute("dbdata", list);
+      }
+
+      rs = db.getResultSet("SELECT * FROM employee ");
+      List<DataBean> list2 = new ArrayList<DataBean>();
+      while (rs.next()) {
+        list2.add(new DataBean(rs.getString("name"),rs.getInt("id")));
+        request.setAttribute("dbdata2", list2);
+      }
+
+      if(prev == 0) {
+        int prevYear = Integer.parseInt(year) - 1;
+        prev = 12;
+        nextMonth = 1;
+        sql = "SELECT * FROM attendance WHERE employee_id = "+ name +" AND date >= '"+ prevYear +"-"+ prev +"-01' AND date <'"+ year +"-"+ nextMonth +"-01'";
+        year = String.valueOf(prevYear);
+      }else {
+        nextMonth = prev + 1;
+        sql = "SELECT * FROM attendance WHERE employee_id = "+ name +" AND date >= '"+ year +"-"+ prev +"-01' AND date <'"+ year +"-"+ nextMonth +"-01'";
+      }
+
       out.println(sql);
       rs = db.getResultSet(sql);
-      //ƒf[ƒ^‚Ìæ“¾
+      List<DataBean> list3 = new ArrayList<DataBean>();
       while (rs.next()) {
         int id = rs.getInt("id");
         String startTime  = rs.getString("start_time");
@@ -47,12 +78,12 @@ public class PrevMonth extends HttpServlet{
         String breakTime = rs.getString("break_time");
         String detail = rs.getString("detail");
         Boolean deleteFlag = rs.getBoolean("delete_flag");
-      
         String diffTime = getTime(startTime,endTime,breakTime);
-        //‘—M‚·‚éƒf[ƒ^‚Ìİ’è
+        list3.add(new DataBean(rs.getInt("id"), rs.getString("date"), rs.getString("start_time").substring(0,5), rs.getString("end_time").substring(0,5), rs.getInt("break_time"), diffTime.substring(0,5), rs.getString("detail")));
+
         request.setAttribute("Year",year);
-        request.setAttribute("Name",name);                   
-        request.setAttribute("Month",month);
+        request.setAttribute("Name",name);
+        request.setAttribute("Month",prev);
         request.setAttribute("date",date);
         request.setAttribute("start_time",startTime);
         request.setAttribute("end_time",endTime);
@@ -60,10 +91,13 @@ public class PrevMonth extends HttpServlet{
         request.setAttribute("detail",detail);
         request.setAttribute("diffTime",diffTime);
         request.setAttribute("id",id);
- 
-        getServletContext().getRequestDispatcher("/attendanceList.jsp").forward(request, response);
+        request.setAttribute("dbdata3", list3);
       }
-      
+      if(list3.size() == 0) {
+      	getServletContext().getRequestDispatcher("/error.jsp").forward(request, response);
+      }
+      getServletContext().getRequestDispatcher("/attendanceList.jsp").forward(request, response);
+
       }catch(Exception e){
         e.printStackTrace();
       }finally{
@@ -72,10 +106,10 @@ public class PrevMonth extends HttpServlet{
         }catch(Exception e){
           e.printStackTrace();
         }
-        
+
       }
   }
-     
+
   protected void doGet(HttpServletRequest request,HttpServletResponse response)throws ServletException, IOException {
     processRequest(request, response);
   }
@@ -85,21 +119,21 @@ public class PrevMonth extends HttpServlet{
   }
 
 
-  public static String getTime(String start, String end, String breakTime) throws Exception { //‹Î–±ŠÔ‚ğŒvZ 
+  public static String getTime(String start, String end, String breakTime) throws Exception { //ï¿½Î–ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½ï¿½vï¿½Z
     int hour = Integer.parseInt(end.substring(0,2));
     hour = hour - (Integer.parseInt(breakTime)/60);
-    SimpleDateFormat formatter = new SimpleDateFormat ("HH:mm:ss"); 
-    Date startDate = formatter.parse(start); // ŠJn 
-    Date endDate = formatter.parse(hour+":00:00"); // I—¹ 
-   
+    SimpleDateFormat formatter = new SimpleDateFormat ("HH:mm:ss");
+    Date startDate = formatter.parse(start); // ï¿½Jï¿½nï¿½ï¿½ï¿½ï¿½
+    Date endDate = formatter.parse(hour+":00:00"); // ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-    long diffTime = endDate.getTime() - startDate.getTime(); 
 
-    SimpleDateFormat timeFormatter = new SimpleDateFormat ("HH:mm:ss"); 
-    timeFormatter.setTimeZone(TimeZone.getTimeZone("GMT")); 
+    long diffTime = endDate.getTime() - startDate.getTime();
 
-    String diffTimeStr = timeFormatter.format(new Date(diffTime)); 
+    SimpleDateFormat timeFormatter = new SimpleDateFormat ("HH:mm:ss");
+    timeFormatter.setTimeZone(TimeZone.getTimeZone("GMT"));
+
+    String diffTimeStr = timeFormatter.format(new Date(diffTime));
 
     return diffTimeStr;
-  } 
+  }
 }

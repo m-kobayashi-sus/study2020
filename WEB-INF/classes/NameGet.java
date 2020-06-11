@@ -1,14 +1,13 @@
-import db.DBAccesser;
-import java.io.*;
-import javax.servlet.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import javax.servlet.http.*;
-import java.util.*; 
-import java.text.*; 
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import db.DBAccesser;
 
 public class NameGet extends HttpServlet{
 
@@ -18,46 +17,74 @@ public class NameGet extends HttpServlet{
     request.setCharacterEncoding("Shift_JIS");
     response.setCharacterEncoding("Shift_JIS");
     PrintWriter out = response.getWriter();
-    String name = (String)request.getParameter("name"); // ƒtƒH[ƒ€‚©‚ç’l‚ğæ“¾ 
-    String year = (String)request.getParameter("year"); 
-    if(year == null){
-      year = "";
-    }
-    String month = (String)request.getParameter("month");
-    if(month == null){
-      month = "";
-    }
+    String name = (String)request.getParameter("name");
     String date = (String)request.getParameter("date");
+    String startTime = (String)request.getParameter("start_time");
+    String endTime = (String)request.getParameter("end_time");
+    String breakTime = (String)request.getParameter("break_time");
+    String detail = (String)request.getParameter("detail");
+    String year = "";
+    String month = "";
     String day = "";
+    String startHour = "";
+    String startMinute = "";
+    String endHour = "";
+    String endMinute = "";
+
     if(date != null){
       day = date.substring(8,10);
+      year = date.substring(0,4);
+      month = date.substring(5,7);
     }
+
+    if(startTime != null){
+      startHour = startTime.substring(0,2);
+      startMinute = startTime.substring(3,5);
+    }
+
+    if(endTime != null){
+      endHour = endTime.substring(0,2);
+      endMinute = endTime.substring(3,5);
+    }
+
+    if(breakTime == null) {
+      breakTime = "";
+    }
+
+
+
     String id = (String)request.getParameter("id");
 
-    request.setAttribute("year",year); 
-    request.setAttribute("month",month); 
-    request.setAttribute("day",day); 
-    request.setAttribute("id",id); 
- 
+    request.setAttribute("year",year);
+    request.setAttribute("month",month);
+    request.setAttribute("day",day);
+    request.setAttribute("id",id);
+    request.setAttribute("start_hour",startHour);
+    request.setAttribute("start_minute",startMinute);
+    request.setAttribute("end_hour",endHour);
+    request.setAttribute("end_minute",endMinute);
+    request.setAttribute("break_time",breakTime);
+    request.setAttribute("detail",detail);
+
     DBAccesser db = new DBAccesser();
     ResultSet rs = null;
     try{
       db.open();
-      out.println("Ú‘±¬Œ÷a");
-      
-      //Às‚·‚éSQL
+      out.println("æ¥ç¶šæˆåŠŸ");
+
+      //ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½SQL
       String sql = "SELECT * FROM employee WHERE id = "+ name;
       out.println(sql);
       rs = db.getResultSet(sql);
-      //ƒf[ƒ^‚Ìæ“¾
+
       while (rs.next()) {
         String n  = rs.getString("name");
 
-        request.setAttribute("name",n);                   
+        request.setAttribute("name",n);
 
         getServletContext().getRequestDispatcher("/attendanceEditor.jsp").forward(request, response);
       }
-      
+
       }catch(Exception e){
         e.printStackTrace();
       }finally{
@@ -66,11 +93,11 @@ public class NameGet extends HttpServlet{
         }catch(Exception e){
           e.printStackTrace();
         }
-        
+
       }
-    
+
   }
-     
+
   protected void doGet(HttpServletRequest request,HttpServletResponse response)throws ServletException, IOException {
     processRequest(request, response);
   }

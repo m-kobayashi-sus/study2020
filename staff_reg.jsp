@@ -44,7 +44,7 @@
 
   <h2><center>ŽÐˆõ“o˜^</center></h2>
 
-  <form action="/Attendance/StaffReg" method="POST"  style="display: inline">
+  <form action="/Attendance/StaffReg?id=0" method="POST"  style="display: inline">
     <div>
       <div>
         <span class="col-2"></span>

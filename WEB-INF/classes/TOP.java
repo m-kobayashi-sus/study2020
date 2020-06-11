@@ -15,30 +15,23 @@ import javax.servlet.http.HttpServletResponse;
 import bean.DataBean;
 import db.DBAccesser;
 
-public class AttendanceList extends HttpServlet{
+public class TOP extends HttpServlet{
 
-  public void processRequest(HttpServletRequest request, HttpServletResponse response)
+public void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws IOException, ServletException{
 
     request.setCharacterEncoding("Shift_JIS");
     response.setCharacterEncoding("Shift_JIS");
     PrintWriter out = response.getWriter();
-    String name = (String)request.getParameter("name");
-    String year = (String)request.getParameter("year");
-    String month = (String)request.getParameter("month");
-    if (name.equals("")){
-      getServletContext().getRequestDispatcher("/attendanceList.jsp").forward(request, response);
-    }
 
     DBAccesser db = new DBAccesser();
     ResultSet rs = null;
     try{
       db.open();
       out.println("接続成功");
-      String sql = "";
-
       rs = db.getResultSet("SELECT * FROM attendance ");
       List<String> list = new ArrayList<String>();
+
       while (rs.next()) {
     	if (!list.contains(rs.getString("date").substring(0, 4))) {
           list.add(rs.getString("date").substring(0,4));
@@ -51,45 +44,8 @@ public class AttendanceList extends HttpServlet{
       while (rs.next()) {
         list2.add(new DataBean(rs.getString("name"),rs.getInt("id")));
         request.setAttribute("dbdata2", list2);
-       }
+      }
 
-      int nextMonth = Integer.parseInt(month) + 1;
-      if(nextMonth == 13) {
-    	int nextYear = Integer.parseInt(year) + 1;
-    	nextMonth = 1;
-    	sql = "SELECT * FROM attendance WHERE employee_id = "+ name +" AND date >= '"+ year +"-"+ month +"-01' AND date <'"+ nextYear +"-"+ nextMonth +"-01'";
-      }else {
-        sql = "SELECT * FROM attendance WHERE employee_id = "+ name +" AND date >= '"+ year +"-"+ month +"-01' AND date <'"+ year +"-"+ nextMonth +"-01'";
-      }
-        out.println(sql);
-      rs = db.getResultSet(sql);
-      List<DataBean> list3 = new ArrayList<DataBean>();
-      while (rs.next()) {
-        int id = rs.getInt("id");
-        String startTime  = rs.getString("start_time");
-        String date = rs.getString("date");
-        String endTime = rs.getString("end_time");
-        String breakTime = rs.getString("break_time");
-        String detail = rs.getString("detail");
-        Boolean deleteFlag = rs.getBoolean("delete_flag");
-        String diffTime = getTime(startTime, endTime, breakTime);
-        list3.add(new DataBean(rs.getInt("id"), rs.getString("date"), rs.getString("start_time").substring(0,5), rs.getString("end_time").substring(0,5), rs.getInt("break_time"), diffTime.substring(0,5), rs.getString("detail")));
-        request.setAttribute("Year",year);
-        request.setAttribute("Name",name);
-        request.setAttribute("Month",month);
-        request.setAttribute("date",date);
-        request.setAttribute("start_time",startTime);
-        request.setAttribute("end_time",endTime);
-        request.setAttribute("break_time",breakTime);
-        request.setAttribute("detail",detail);
-        request.setAttribute("diffTime",diffTime);
-        request.setAttribute("id",id);
-        request.setAttribute("dbdata3", list3);
-        request.setAttribute("test", list3.size());
-      }
-      if(list3.size() == 0) {
-    	getServletContext().getRequestDispatcher("/error.jsp").forward(request, response);
-      }
       getServletContext().getRequestDispatcher("/attendanceList.jsp").forward(request, response);
 
       }catch(Exception e){

@@ -44,7 +44,7 @@
 
   <h2><center>é–àıï“èW</center></h2>
 
-  <form action="/Attendance/StaffEdit" method="POST"  style="display: inline">
+  <form action="/Attendance/StaffEdit?id=<%=request.getAttribute("id") %>" method="POST"  style="display: inline">
     <div>
       <div>
         <span class="col-2"></span>
@@ -72,6 +72,6 @@
     </div>
     <div class="right"><input type="submit" value="ï“èWÇ∑ÇÈ"></div>
   </form>
-
+<%=request.getAttribute("id") %>
 </body>
 </html>

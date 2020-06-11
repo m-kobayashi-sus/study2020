@@ -1,14 +1,13 @@
-import db.DBAccesser;
-import java.io.*;
-import javax.servlet.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import javax.servlet.http.*;
-import java.util.*; 
-import java.text.*; 
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import db.DBAccesser;
 
 public class StaffCheck extends HttpServlet{
 
@@ -18,22 +17,28 @@ public class StaffCheck extends HttpServlet{
     request.setCharacterEncoding("Shift_JIS");
     response.setCharacterEncoding("Shift_JIS");
     PrintWriter out = response.getWriter();
-    String name = (String)request.getParameter("name"); // ÉtÉHÅ[ÉÄÇ©ÇÁílÇéÊìæ 
+    String name = (String)request.getParameter("name");
     String mailaddress = (String)request.getParameter("mailaddress");
     String password = (String)request.getParameter("password");
+    String id = (String)request.getParameter("id");
+
 
     DBAccesser db = new DBAccesser();
     ResultSet rs = null;
     try{
       db.open();
-      out.println("ê⁄ë±ê¨å˜");
-    
-      //é¿çsÇ∑ÇÈSQL
-      String sql = "insert into employee (name, mail, pass, delete_flag) values ('"+name+"', '"+mailaddress+"', '"+password+"', 'FALSE')";
+      out.println("Êé•Á∂öÊàêÂäü");
+      String sql = "";
+      int ID = Integer.parseInt(request.getParameter("id"));
+      if(ID==0) {
+        sql = "insert into employee (name, mail, pass, delete_flag) values ('"+name+"', '"+mailaddress+"', '"+password+"', 'FALSE')";
+      }else {
+    	sql = "update employee set name = '"+name+"', mail = '"+mailaddress+"', pass = '"+password+"' where id ="+ID;
+      }
       out.println(sql);
       db.execute(sql);
       getServletContext().getRequestDispatcher("/staff_reg_complete.jsp").forward(request, response);
-      
+
       }catch(Exception e){
         e.printStackTrace();
       }finally{
@@ -42,11 +47,11 @@ public class StaffCheck extends HttpServlet{
         }catch(Exception e){
           e.printStackTrace();
         }
-        
+
       }
-    
+
   }
-     
+
   protected void doGet(HttpServletRequest request,HttpServletResponse response)throws ServletException, IOException {
     processRequest(request, response);
   }
