@@ -72,6 +72,6 @@
     </div>
     <div class="right"><input type="submit" value="•ÒW‚·‚é"></div>
   </form>
-<%=request.getAttribute("id") %>
+
 </body>
 </html>

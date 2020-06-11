@@ -16,8 +16,8 @@ public class IDGet extends HttpServlet{
     PrintWriter out = response.getWriter();
     String id = (String)request.getParameter("id");
     request.setAttribute("id",id);
-    int ID = Integer.parseInt(request.getParameter("id"));
-    if(ID==0) {
+
+    if(Integer.parseInt(request.getParameter("id"))==0) {
       getServletContext().getRequestDispatcher("/staff_reg.jsp").forward(request, response);
     }else {
       getServletContext().getRequestDispatcher("/staff_edit.jsp").forward(request, response);

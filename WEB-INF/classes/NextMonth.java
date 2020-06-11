@@ -42,53 +42,46 @@ public class NextMonth extends HttpServlet{
     try{
       db.open();
       out.println("接続成功");
-      String sql = "";
 
       rs = db.getResultSet("SELECT * FROM attendance ");
-      List<String> list = new ArrayList<String>();
+      List<String> yearList = new ArrayList<String>();
       while (rs.next()) {
-    	if (!list.contains(rs.getString("date").substring(0, 4))) {
-          list.add(rs.getString("date").substring(0,4));
-    	}
-        request.setAttribute("dbdata", list);
+        if (!yearList.contains(rs.getString("date").substring(0, 4))) {
+          yearList.add(rs.getString("date").substring(0,4));
+        }
+        request.setAttribute("yearData", yearList);
       }
 
       rs = db.getResultSet("SELECT * FROM employee ");
-      List<DataBean> list2 = new ArrayList<DataBean>();
+      List<DataBean> nameList = new ArrayList<DataBean>();
       while (rs.next()) {
-        list2.add(new DataBean(rs.getString("name"),rs.getInt("id")));
-        request.setAttribute("dbdata2", list2);
+        nameList.add(new DataBean(rs.getString("name"),rs.getInt("id")));
+        request.setAttribute("nameData", nameList);
       }
 
+      String sql = "";
       int nextMonth = Integer.parseInt(month) + 1;
       sql = "SELECT * FROM attendance WHERE employee_id = "+ name +" AND date >= '"+ year +"-"+ month +"-01' AND date <'"+ year +"-"+ nextMonth +"-01'";
 
       rs = db.getResultSet(sql);
-      List<DataBean> list3 = new ArrayList<DataBean>();
+      List<DataBean> workTimeList = new ArrayList<DataBean>();
       while (rs.next()) {
         int id = rs.getInt("id");
         String startTime  = rs.getString("start_time");
-        String date = rs.getString("date");
         String endTime = rs.getString("end_time");
         String breakTime = rs.getString("break_time");
         String detail = rs.getString("detail");
-        Boolean deleteFlag = rs.getBoolean("delete_flag");
         String diffTime = getTime(startTime, endTime, breakTime);
-        list3.add(new DataBean(rs.getInt("id"), rs.getString("date"), rs.getString("start_time").substring(0,5), rs.getString("end_time").substring(0,5), rs.getInt("break_time"), diffTime.substring(0,5), rs.getString("detail")));
+        workTimeList.add(new DataBean(rs.getInt("id"), rs.getString("date"), rs.getString("start_time").substring(0,5), rs.getString("end_time").substring(0,5), rs.getInt("break_time"), diffTime.substring(0,5), rs.getString("detail")));
 
         request.setAttribute("Year",year);
         request.setAttribute("Name",name);
         request.setAttribute("Month",month);
-        request.setAttribute("date",date);
-        request.setAttribute("start_time",startTime);
-        request.setAttribute("end_time",endTime);
-        request.setAttribute("break_time",breakTime);
-        request.setAttribute("detail",detail);
         request.setAttribute("diffTime",diffTime);
         request.setAttribute("id",id);
-        request.setAttribute("dbdata3", list3);
+        request.setAttribute("dbdata", workTimeList);
       }
-      if(list3.size() == 0) {
+      if(workTimeList.size() == 0) {
       	getServletContext().getRequestDispatcher("/error.jsp").forward(request, response);
       }
       getServletContext().getRequestDispatcher("/attendanceList.jsp").forward(request, response);

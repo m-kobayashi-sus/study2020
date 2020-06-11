@@ -70,6 +70,5 @@
     <div class="right"><input type="submit" value="“o˜^‚·‚é"></div>
   </form>
 
-<%=request.getAttribute("id") %>
 </body>
 </html>

@@ -74,13 +74,13 @@
   <form action = "/Attendance/AttendanceList" method="POST" >
     <select name="name">
       <option value="">社員を選択</option>
-      <c:forEach items="${dbdata2}" var="dbdataLine">
+      <c:forEach items="${nameData}" var="dbdataLine">
         <option value=${dbdataLine.id}>${dbdataLine.name}</option>
       </c:forEach>
     </select>
     <br>
     <select name="year">
-      <c:forEach items="${dbdata}" var="dbdataLine">
+      <c:forEach items="${yearData}" var="dbdataLine">
         <option value=${dbdataLine}>${dbdataLine}</option>
       </c:forEach>
     </select>&nbsp;年
@@ -115,7 +115,7 @@
       <tr>
         <th width="120">日付</th><th width="120">開始</th><th width="120">終了</th><th width="120">休憩</th><th width="120">勤務時間</th><th width="120">作業内容</th><th width="120">編集</th>
       </tr>
-    <c:forEach items="${dbdata3}" var="dbdataLine">
+    <c:forEach items="${dbdata}" var="dbdataLine">
       <tr>
         <td>${dbdataLine.date}</td>
         <td>${dbdataLine.startTime}</td>
