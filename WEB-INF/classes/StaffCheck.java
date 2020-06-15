@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,11 +19,9 @@ public class StaffCheck extends HttpServlet{
     String name = (String)request.getParameter("name");
     String mailaddress = (String)request.getParameter("mailaddress");
     String password = (String)request.getParameter("password");
-    String id = (String)request.getParameter("id");
-
-
+    String changePassword = (String)request.getParameter("changePassword");
+    out.println(changePassword);
     DBAccesser db = new DBAccesser();
-    ResultSet rs = null;
     try{
       db.open();
       out.println("接続成功");
@@ -33,7 +30,7 @@ public class StaffCheck extends HttpServlet{
       if(ID==0) {
         sql = "insert into employee (name, mail, pass, delete_flag) values ('"+name+"', '"+mailaddress+"', '"+password+"', 'FALSE')";
       }else {
-    	sql = "update employee set name = '"+name+"', mail = '"+mailaddress+"', pass = '"+password+"' where id ="+ID;
+    	sql = "update employee set name = '"+name+"', mail = '"+mailaddress+"', pass = '"+changePassword+"' where id ="+ID;
       }
       out.println(sql);
       db.execute(sql);

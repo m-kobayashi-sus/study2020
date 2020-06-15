@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,11 +12,14 @@ public class IDGet extends HttpServlet{
 
     request.setCharacterEncoding("Shift_JIS");
     response.setCharacterEncoding("Shift_JIS");
-    PrintWriter out = response.getWriter();
     String id = (String)request.getParameter("id");
+    String name = (String)request.getParameter("name");
+    String mail= (String)request.getParameter("mail");
     request.setAttribute("id",id);
+    request.setAttribute("name",name);
+    request.setAttribute("mail",mail);
 
-    if(Integer.parseInt(request.getParameter("id"))==0) {
+    if(Integer.parseInt(request.getParameter("id"))==0) { //主キーで登録・編集を場合分け
       getServletContext().getRequestDispatcher("/staff_reg.jsp").forward(request, response);
     }else {
       getServletContext().getRequestDispatcher("/staff_edit.jsp").forward(request, response);

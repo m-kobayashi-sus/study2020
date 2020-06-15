@@ -12,30 +12,49 @@ public class StaffReg extends HttpServlet {
   protected void processRequest(HttpServletRequest request,HttpServletResponse response)
       throws ServletException, IOException {
     request.setCharacterEncoding("Shift_JIS");
-    String name = (String)request.getParameter("name");             // �t�H�[������l���擾
+    String name = (String)request.getParameter("name");
     String mailaddress = (String)request.getParameter("mailaddress");
     String password = (String)request.getParameter("password");
     String id = (String)request.getParameter("id");
     String pass = "";
-
-    for (int i=0; i<password.length(); i++){ //�p�X���[�h��*�̕ϊ�����
+    for (int i=0; i<password.length(); i++){
       pass = pass + "*" ;
     }
 
+    String nameCheck;
+    if (name.length() >= 2 && name.length() <= 20){
+      nameCheck = "SUCCESS";
+    }else{
+      nameCheck = "FAILURE";
+    }
+
+    String mailaddressCheck;
+    if(mailaddress.length() <= 50){
+      mailaddressCheck = "SUCCESS";
+    }else{
+      mailaddressCheck = "FAILURE";
+    }
+
+    String passwordCheck = checkLength(password);
     response.setCharacterEncoding("UTF-8");
-    request.setAttribute("Password",password); //�Z�b�V�����ɒl��ݒ�
+    request.setAttribute("Password",password);
     request.setAttribute("Name",name);
     request.setAttribute("Mailaddress",mailaddress);
     request.setAttribute("Pass",pass);
+    request.setAttribute("nameCheck",nameCheck);
+    request.setAttribute("mailaddressCheck",mailaddressCheck);
+    request.setAttribute("passwordCheck",passwordCheck);
     request.setAttribute("id",id);
+    request.setAttribute("checkHanMailaddress",isHanStr(mailaddress) );
+    request.setAttribute("checkHanPassword",isHanStr(password) );
     ServletContext context = this.getServletContext();
     if (name.length() >= 2 && name.length() <= 20 &&
-        password.length() >= 8 && password.length() <= 64 && isHanStr(password) == true &&
-        mailaddress.length() <= 50 && isEmpty(mailaddress) == false && isHanStr(mailaddress) == true){
-      RequestDispatcher dispatcher = context.getRequestDispatcher("/staff_check.jsp");  //�m�F��ʂ֑J��
+        password.length() >= 8 && password.length() <= 64 && isHanStr(password) == "SUCCESS" &&
+        mailaddress.length() <= 50 && isEmpty(mailaddress) == false && isHanStr(mailaddress) == "SUCCESS"){
+      RequestDispatcher dispatcher = context.getRequestDispatcher("/staff_check.jsp");
       dispatcher.forward(request,response);
     }else{
-      RequestDispatcher dispatcher = context.getRequestDispatcher("/staff_reg_error.jsp"); //�G���[��ʂ֑J��
+      RequestDispatcher dispatcher = context.getRequestDispatcher("/staff_reg_error.jsp");
       dispatcher.forward(request,response);
     }
 
@@ -59,11 +78,19 @@ public class StaffReg extends HttpServlet {
     }
   }
 
-  public static boolean isHanStr(String s){
+  public static String isHanStr(String s){
     if (!s.matches("^[0-9a-zA-Z]+$")) {
-      return false;
+      return "FAILURE";
     }else{
-      return true;
+      return "SUCCESS";
+    }
+  }
+
+  public static String checkLength(String str) {
+    if (str.length() >= 8 && str.length() <= 64){
+      return "SUCCESS";
+    }else{
+      return "FAILURE";
     }
   }
 }

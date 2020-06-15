@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>�G���[���</title>
+<title>エラー画面</title>
 
 <style type="text/css">
   .blue {
@@ -28,14 +28,18 @@
 
   <header>
     <div class="blue">
-      <div class="right white"><a href="/attendance/staff_list.jsp"> �Ј���o�^���� </a></div>
-      <div class="left white"><a href="/attendance/attendanceList.jsp"> �ΑӊǗ��V�X�e�� </a></div>
+      <div class="right white"><a href="/Attendance/StaffList"> 社員を登録する </a></div>
+      <div class="left white"><a href="/Attendance/TOP"> 勤怠管理システム </a></div>
     </div>
   </header>
 
-  <h2><center>�G���[</center></h2>
-  <p><center>�G���[���������܂����B<br>���萔�ł����A�������蒼���Ă��������B</center></p>
-  <center><button type=�gbutton�h onclick="location.href='/attendance/attendanceList.jsp'">�ΑӊǗ��V�X�e���g�b�v�ɖ߂�</button></center>
+  <h2><center>エラー</center></h2>
+  <% if (request.getAttribute("detail") == "" ) { %>
+    <p><center>作業内容を入力してください。<br>お手数ですが、操作をやり直してください。</center></p>
+  <% }else{ %>
+    <p><center>日付が有効ではありません。<br>お手数ですが、操作をやり直してください。</center></p>
+  <% } %>
+  <center><button type=“button” onclick="location.href='/Attendance/TOP'">勤怠管理システムトップに戻る</button></center>
 
 </body>
 </html>

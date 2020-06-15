@@ -20,8 +20,8 @@ public class AttendanceList extends HttpServlet{
   public void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws IOException, ServletException{
 
-    request.setCharacterEncoding("Shift_JIS");
-    response.setCharacterEncoding("Shift_JIS");
+    request.setCharacterEncoding("Windows-31J");
+    response.setCharacterEncoding("Windows-31J");
     PrintWriter out = response.getWriter();
     String name = (String)request.getParameter("name");
     String year = (String)request.getParameter("year");
@@ -38,7 +38,7 @@ public class AttendanceList extends HttpServlet{
 
       rs = db.getResultSet("SELECT * FROM attendance ");
       List<String> yearList = new ArrayList<String>();
-      while (rs.next()) {
+      while(rs.next()) {
         if (!yearList.contains(rs.getString("date").substring(0, 4))) {
           yearList.add(rs.getString("date").substring(0,4));
         }
@@ -54,7 +54,7 @@ public class AttendanceList extends HttpServlet{
 
       int nextMonth = Integer.parseInt(month) + 1;
       String sql = "";
-      if(nextMonth == 13) {
+      if(nextMonth == 13) { //選択が12月だった場合に範囲の指定を一月に変更
         int nextYear = Integer.parseInt(year) + 1;
         nextMonth = 1;
         sql = "SELECT * FROM attendance WHERE employee_id = "+ name +" AND date >= '"+ year +"-"+ month +"-01' AND date <'"+ nextYear +"-"+ nextMonth +"-01'";

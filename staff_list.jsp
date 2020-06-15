@@ -3,7 +3,7 @@
 
 <html>
 <head>
-<title>Ğˆõˆê——‰æ–Ê</title>
+<title>ç¤¾å“¡ä¸€è¦§ç”»é¢</title>
 
 <style type="text/css">
   .blue {
@@ -34,11 +34,11 @@
 <script type="text/javascript">
 
   function disp(name, id){
-  // Šm”Fƒ_ƒCƒAƒƒO‚Ì•\¦
-    if(window.confirm(name+"‚³‚ñ‚Ìƒf[ƒ^‚ğíœ")){
-      location.href = "/Attendance/StaffDelete?id="+id; // OK‚Ìˆ—
+  // ç¢ºèªãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã®è¡¨ç¤º
+    if(window.confirm(name+"ã•ã‚“ã®ãƒ‡ãƒ¼ã‚¿ã‚’å‰Šé™¤")){
+      location.href = "/Attendance/StaffDelete?id="+id; // OKæ™‚ã®å‡¦ç†
     }else{
-      window.alert('ƒLƒƒƒ“ƒZƒ‹‚³‚ê‚Ü‚µ‚½');
+      window.alert('ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã•ã‚Œã¾ã—ãŸ');
     }
 }
 
@@ -49,28 +49,28 @@
 
   <header>
     <div class="blue">
-      <div class="right white"><a href="/Attendance/StaffList"> Ğˆõ‚ğ“o˜^‚·‚é </a></div>
-      <div class="left white"><a href="/Attendance/attendanceList.jsp"> ‹Î‘ÓŠÇ—ƒVƒXƒeƒ€ </a></div>
+      <div class="right white"><a href="/Attendance/StaffList"> ç¤¾å“¡ã‚’ç™»éŒ²ã™ã‚‹ </a></div>
+      <div class="left white"><a href="/Attendance/TOP"> å‹¤æ€ ç®¡ç†ã‚·ã‚¹ãƒ†ãƒ  </a></div>
     </div>
   </header>
 
-  <center><h2>Ğˆõˆê——</h2></center>
+  <center><h2>ç¤¾å“¡ä¸€è¦§</h2></center>
 
   <table border="1">
     <tr>
-      <th width="30">No</th><th width="250">–¼‘O</th><th width="250">ƒ[ƒ‹ƒAƒhƒŒƒX</th><th width="100">•ÒW</th>
+      <th width="30">No</th><th width="250">åå‰</th><th width="250">ãƒ¡ãƒ¼ãƒ«ã‚¢ãƒ‰ãƒ¬ã‚¹</th><th width="100">ç·¨é›†</th>
     </tr>
       <c:forEach items="${dbdata}" var="dbdataLine">
         <tr>
           <td>${dbdataLine.id}</td>
           <td>${dbdataLine.name}</td>
           <td>${dbdataLine.mail}</td>
-          <td><button type=gbuttonh onclick="location.href='/Attendance/IDGet?id=${dbdataLine.id} '">•ÒW</button>&nbsp;<input type="button" value="íœ" onClick="disp('${dbdataLine.name}', '${dbdataLine.id}')"></td>
+          <td><button type=â€œbuttonâ€ onclick="location.href='/Attendance/IDGet?id=${dbdataLine.id}&name=${dbdataLine.name}&mail=${dbdataLine.mail}'">ç·¨é›†</button>&nbsp;<input type="button" value="å‰Šé™¤" onClick="disp('${dbdataLine.name}', '${dbdataLine.id}')"></td>
         </tr>
       </c:forEach>
   </table>
 
-  <p class="right"><button type=gbuttonh onclick="location.href='/Attendance/IDGet?id=0'">Ğˆõ‚ğ“o˜^‚·‚é</button></p>
+  <p class="right"><button type=â€œbuttonâ€ onclick="location.href='/Attendance/IDGet?id=0'">ç¤¾å“¡ã‚’ç™»éŒ²ã™ã‚‹</button></p>
 
 
 </body>

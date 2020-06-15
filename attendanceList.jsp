@@ -1,9 +1,9 @@
-<%@ page contentType="text/html;charset=Shift_JIS" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html>
 <head>
-<title>‹Î‘ÓŠÇ—ƒVƒXƒeƒ€TOP</title>
+<title>å‹¤æ€ ç®¡ç†ã‚·ã‚¹ãƒ†ãƒ TOP</title>
 
 <style type="text/css">
   .blue {
@@ -50,11 +50,11 @@
 <script type="text/javascript">
 
   function disp(id){
-    // Šm”Fƒ_ƒCƒAƒƒO‚Ì•\¦
-    if(window.confirm('‹Î‘Óƒf[ƒ^‚ªíœ‚³‚ê‚Ü‚·B')){
-      location.href = "/Attendance/AttendanceDelete?id=" + id; // OK‚Ìˆ—
+    // ç¢ºèªãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã®è¡¨ç¤º
+    if(window.confirm('å‹¤æ€ ãƒ‡ãƒ¼ã‚¿ãŒå‰Šé™¤ã•ã‚Œã¾ã™ã€‚')){
+      location.href = "/Attendance/AttendanceDelete?id=" + id; // OKæ™‚ã®å‡¦ç†
     }else{
-      window.alert('ƒLƒƒƒ“ƒZƒ‹‚³‚ê‚Ü‚µ‚½'); // Œxƒ_ƒCƒAƒƒO‚ğ•\¦(ƒLƒƒƒ“ƒZƒ‹‚Ìˆ—)
+      window.alert('ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã•ã‚Œã¾ã—ãŸ'); // è­¦å‘Šãƒ€ã‚¤ã‚¢ãƒ­ã‚°ã‚’è¡¨ç¤º(ã‚­ãƒ£ãƒ³ã‚»ãƒ«æ™‚ã®å‡¦ç†)
     }
   }
 
@@ -64,8 +64,8 @@
 <body>
   <header>
     <div class="blue">
-      <div class="right white"><a href="/Attendance/StaffList"> Ğˆõ‚ğ“o˜^‚·‚é </a></div>
-      <div class="left white"><a href="/Attendance/TOP"> ‹Î‘ÓŠÇ—ƒVƒXƒeƒ€ </a></div>
+      <div class="right white"><a href="/Attendance/StaffList"> ç¤¾å“¡ã‚’ç™»éŒ²ã™ã‚‹ </a></div>
+      <div class="left white"><a href="/Attendance/TOP"> å‹¤æ€ ç®¡ç†ã‚·ã‚¹ãƒ†ãƒ  </a></div>
     </div>
   </header>
 
@@ -73,7 +73,7 @@
 
   <form action = "/Attendance/AttendanceList" method="POST" >
     <select name="name">
-      <option value="">Ğˆõ‚ğ‘I‘ğ</option>
+      <option value="">ç¤¾å“¡ã‚’é¸æŠ</option>
       <c:forEach items="${nameData}" var="dbdataLine">
         <option value=${dbdataLine.id}>${dbdataLine.name}</option>
       </c:forEach>
@@ -83,7 +83,7 @@
       <c:forEach items="${yearData}" var="dbdataLine">
         <option value=${dbdataLine}>${dbdataLine}</option>
       </c:forEach>
-    </select>&nbsp;”N
+    </select>&nbsp;å¹´
 
     <select name="month">
       <option value="01">01</option>
@@ -98,22 +98,22 @@
       <option value="10">10</option>
       <option value="11">11</option>
       <option value="12">12</option>
-    </select>&nbsp;Œ
-    <div class="right"><input type="submit" value="‹Î‘Ó‚ğ•\¦‚·‚é"></div>
+    </select>&nbsp;æœˆ
+    <div class="right"><input type="submit" value="å‹¤æ€ ã‚’è¡¨ç¤ºã™ã‚‹"></div>
   </form>
 
   <% if (request.getAttribute("Name") != null ) { %>
     <p> <hr width="95%">
 
     <div class="parent">
-      <div class="center"><font size = 5><span id="span2"></span><%=request.getAttribute("Year") %>”N<span id="span3"></span><%= request.getAttribute("Month") %>Œ</font></div>
-      <div class="right2"><a href="/Attendance/NextMonth?name=<%=request.getAttribute("Name") %>&month=<%=request.getAttribute("Month") %>&year=<%=request.getAttribute("Year")%>">Ÿ‚ÌŒ&raquo;</a></div>
-      <div class="left2"><a href ="/Attendance/PrevMonth?name=<%=request.getAttribute("Name") %>&month=<%=request.getAttribute("Month") %>&year=<%=request.getAttribute("Year")%>">&laquo;‘O‚ÌŒ</a></div>
+      <div class="center"><font size = 5><span id="span2"></span><%=request.getAttribute("Year") %>å¹´<span id="span3"></span><%= request.getAttribute("Month") %>æœˆ</font></div>
+      <div class="right2"><a href="/Attendance/NextMonth?name=<%=request.getAttribute("Name") %>&month=<%=request.getAttribute("Month") %>&year=<%=request.getAttribute("Year")%>">æ¬¡ã®æœˆ&raquo;</a></div>
+      <div class="left2"><a href ="/Attendance/PrevMonth?name=<%=request.getAttribute("Name") %>&month=<%=request.getAttribute("Month") %>&year=<%=request.getAttribute("Year")%>">&laquo;å‰ã®æœˆ</a></div>
     </div>
 
     <table border="1">
       <tr>
-        <th width="120">“ú•t</th><th width="120">ŠJn</th><th width="120">I—¹</th><th width="120">‹xŒe</th><th width="120">‹Î–±ŠÔ</th><th width="120">ì‹Æ“à—e</th><th width="120">•ÒW</th>
+        <th width="120">æ—¥ä»˜</th><th width="120">é–‹å§‹</th><th width="120">çµ‚äº†</th><th width="120">ä¼‘æ†©</th><th width="120">å‹¤å‹™æ™‚é–“</th><th width="120">ä½œæ¥­å†…å®¹</th><th width="120">ç·¨é›†</th>
       </tr>
     <c:forEach items="${dbdata}" var="dbdataLine">
       <tr>
@@ -123,12 +123,12 @@
         <td>${dbdataLine.breakTime}</td>
         <td>${dbdataLine.diffTime}</td>
         <td>${dbdataLine.detail}</td>
-        <td><button type=gbuttonh onclick="location.href='/Attendance/NameGet?name=<%=request.getAttribute("Name") %>&date=${dbdataLine.date}&id=${dbdataLine.ID}&start_time=${dbdataLine.startTime}&end_time=${dbdataLine.endTime}&break_time=${dbdataLine.breakTime}&detail=${dbdataLine.detail}'">•ÒW</button>&nbsp;<button type="button" onClick="disp('${dbdataLine.ID}')">íœ</button></td>
+        <td><button type=â€œbuttonâ€ onclick="location.href='/Attendance/NameGet?name=<%=request.getAttribute("Name") %>&date=${dbdataLine.date}&id=${dbdataLine.ID}&start_time=${dbdataLine.startTime}&end_time=${dbdataLine.endTime}&break_time=${dbdataLine.breakTime}&detail=${dbdataLine.detail}'">ç·¨é›†</button>&nbsp;<button type="button" onClick="disp('${dbdataLine.ID}')">å‰Šé™¤</button></td>
       </tr>
     </c:forEach>
     </table>
 
-    <p class="right"><button type=gbuttonh onclick="location.href='/Attendance/NameGet?name=<%=request.getAttribute("Name") %>&id=0'">‹Î‘Ó‚ğ“o˜^‚·‚é</button></p>
+    <p class="right"><button type=â€œbuttonâ€ onclick="location.href='/Attendance/NameGet?name=<%=request.getAttribute("Name") %>&id=0'">å‹¤æ€ ã‚’ç™»éŒ²ã™ã‚‹</button></p>
 
   <% } %>
 

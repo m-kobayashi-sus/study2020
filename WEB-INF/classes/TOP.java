@@ -20,8 +20,8 @@ public class TOP extends HttpServlet{
 public void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws IOException, ServletException{
 
-    request.setCharacterEncoding("Shift_JIS");
-    response.setCharacterEncoding("Shift_JIS");
+    request.setCharacterEncoding("Windows-31J");
+    response.setCharacterEncoding("Windows-31J");
     PrintWriter out = response.getWriter();
 
     DBAccesser db = new DBAccesser();
@@ -30,20 +30,20 @@ public void processRequest(HttpServletRequest request, HttpServletResponse respo
       db.open();
       out.println("接続成功");
       rs = db.getResultSet("SELECT * FROM attendance ");
-      List<String> list = new ArrayList<String>();
+      List<String> yearList = new ArrayList<String>();
 
       while (rs.next()) {
-    	if (!list.contains(rs.getString("date").substring(0, 4))) {
-          list.add(rs.getString("date").substring(0,4));
+    	if (!yearList.contains(rs.getString("date").substring(0, 4))) {
+          yearList.add(rs.getString("date").substring(0,4));
     	}
-        request.setAttribute("dbdata", list);
+        request.setAttribute("yearData", yearList);
       }
 
       rs = db.getResultSet("SELECT * FROM employee ");
-      List<DataBean> list2 = new ArrayList<DataBean>();
+      List<DataBean> nameList = new ArrayList<DataBean>();
       while (rs.next()) {
-        list2.add(new DataBean(rs.getString("name"),rs.getInt("id")));
-        request.setAttribute("dbdata2", list2);
+        nameList.add(new DataBean(rs.getString("name"),rs.getInt("id")));
+        request.setAttribute("nameData", nameList);
       }
 
       getServletContext().getRequestDispatcher("/attendanceList.jsp").forward(request, response);
