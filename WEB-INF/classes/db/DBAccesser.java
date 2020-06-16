@@ -1,9 +1,14 @@
-package db;
+ï»¿package db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import bean.DataBean;
+import method.GetTime;
 
 public class DBAccesser {
 
@@ -16,11 +21,11 @@ public class DBAccesser {
 	private ResultSet rs;
 
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param driver ƒhƒ‰ƒCƒo[
+	 * ï¿½Rï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
+	 * @param driver ï¿½hï¿½ï¿½ï¿½Cï¿½oï¿½[
 	 * @param url URL
-	 * @param user ƒ†[ƒU[–¼
-	 * @param password ƒpƒXƒ[ƒh
+	 * @param user ï¿½ï¿½ï¿½[ï¿½Uï¿½[ï¿½ï¿½
+	 * @param password ï¿½pï¿½Xï¿½ï¿½ï¿½[ï¿½h
 	 */
 	public DBAccesser(String driver, String url, String user, String password) {
 		this.driver = driver;
@@ -30,8 +35,8 @@ public class DBAccesser {
 	}
 
 	/**
-	 * ˆø”‚È‚µ‚ÌƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * Šù’è’l‚ğg—p‚·‚é
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½ÌƒRï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
+	 * ï¿½ï¿½ï¿½ï¿½lï¿½ï¿½ï¿½gï¿½pï¿½ï¿½ï¿½ï¿½
 	 */
 	public DBAccesser() {
 		driver = "org.postgresql.Driver";
@@ -39,9 +44,9 @@ public class DBAccesser {
 		user = "postgres";
 		password = "password";
 	}
-	
+
 	/**
-	 * ƒf[ƒ^ƒx[ƒX‚Ö‚ÌÚ‘±‚ğs‚¤
+	 * ï¿½fï¿½[ï¿½^ï¿½xï¿½[ï¿½Xï¿½Ö‚ÌÚ‘ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½
 	 */
 	public synchronized void open() throws Exception {
 		Class.forName(driver);
@@ -50,8 +55,8 @@ public class DBAccesser {
 	}
 
 	/**
-	 * SQL •¶‚ğÀs‚µ‚½Œ‹‰Ê‚Ì ResultSet ‚ğ•Ô‚·
-	 * @param sql SQL •¶
+	 * SQL ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê‚ï¿½ ResultSet ï¿½ï¿½Ô‚ï¿½
+	 * @param sql SQL ï¿½ï¿½
 	 */
 	public ResultSet getResultSet(String sql) throws Exception  {
 		if ( st.execute(sql) )  {
@@ -60,30 +65,45 @@ public class DBAccesser {
 		return null;
 	}
 
+	public List<DataBean> getWorkingTimeList(ResultSet rs) throws Exception {
+
+	    List<DataBean> workTimeList = new ArrayList<DataBean>();
+	    GetTime gt = new GetTime();
+	    while (rs.next()) {
+	        String startTime  = rs.getString("start_time");
+	        String endTime = rs.getString("end_time");
+	        String breakTime = rs.getString("break_time");
+	        String diffTime = gt.getWorkingTime(startTime, endTime, breakTime);
+	        Boolean deleteFlag = rs.getBoolean("delete_flag");
+	        workTimeList.add(new DataBean(rs.getInt("id"), rs.getString("date"), rs.getString("start_time").substring(0,5), rs.getString("end_time").substring(0,5), rs.getInt("break_time"), diffTime.substring(0,5), rs.getString("detail")));
+	    }
+		return workTimeList;
+	}
+
 	/**
-	 * SQL •¶‚ÌÀs
-	 * @param sql SQL •¶
+	 * SQL ï¿½ï¿½ï¿½Ìï¿½ï¿½s
+	 * @param sql SQL ï¿½ï¿½
 	 */
 	public void execute(String sql) throws Exception  {
 		st.execute(sql);
 	}
 
 	/**
-	 * ƒRƒ~ƒbƒg
+	 * ï¿½Rï¿½~ï¿½bï¿½g
 	 */
 	public void commit() throws Exception  {
 		cn.commit();
 	}
 
 	/**
-	 * ƒ[ƒ‹ƒoƒbƒN
+	 * ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½oï¿½bï¿½N
 	 */
 	public void rollback() throws Exception  {
 		cn.rollback();
 	}
 
 	/**
-	 * ƒf[ƒ^ƒx[ƒX‚Ö‚ÌƒRƒlƒNƒVƒ‡ƒ“‚ÌƒNƒ[ƒY
+	 * ï¿½fï¿½[ï¿½^ï¿½xï¿½[ï¿½Xï¿½Ö‚ÌƒRï¿½lï¿½Nï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ÌƒNï¿½ï¿½ï¿½[ï¿½Y
 	 */
 	public synchronized void close() throws Exception {
 		if ( rs  != null ){

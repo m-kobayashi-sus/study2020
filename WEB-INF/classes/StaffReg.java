@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import method.CheckForm;
+
 public class StaffReg extends HttpServlet {
 
   protected void processRequest(HttpServletRequest request,HttpServletResponse response)
@@ -20,22 +22,10 @@ public class StaffReg extends HttpServlet {
     for (int i=0; i<password.length(); i++){
       pass = pass + "*" ;
     }
-
-    String nameCheck;
-    if (name.length() >= 2 && name.length() <= 20){
-      nameCheck = "SUCCESS";
-    }else{
-      nameCheck = "FAILURE";
-    }
-
-    String mailaddressCheck;
-    if(mailaddress.length() <= 50){
-      mailaddressCheck = "SUCCESS";
-    }else{
-      mailaddressCheck = "FAILURE";
-    }
-
-    String passwordCheck = checkLength(password);
+    CheckForm cf = new CheckForm();
+    String nameCheck = cf.checkName(name);
+    String mailaddressCheck = cf.checkMailaddress(mailaddress);
+    String passwordCheck = cf.checkPassword(password);
     response.setCharacterEncoding("UTF-8");
     request.setAttribute("Password",password);
     request.setAttribute("Name",name);
@@ -45,12 +35,10 @@ public class StaffReg extends HttpServlet {
     request.setAttribute("mailaddressCheck",mailaddressCheck);
     request.setAttribute("passwordCheck",passwordCheck);
     request.setAttribute("id",id);
-    request.setAttribute("checkHanMailaddress",isHanStr(mailaddress) );
-    request.setAttribute("checkHanPassword",isHanStr(password) );
+    request.setAttribute("checkHanMailaddress",cf.isHanStr(mailaddress) );
+    request.setAttribute("checkHanPassword",cf.isHanStr(password) );
     ServletContext context = this.getServletContext();
-    if (name.length() >= 2 && name.length() <= 20 &&
-        password.length() >= 8 && password.length() <= 64 && isHanStr(password) == "SUCCESS" &&
-        mailaddress.length() <= 50 && isEmpty(mailaddress) == false && isHanStr(mailaddress) == "SUCCESS"){
+    if(cf.checkForm(name, mailaddress, password) == true) {
       RequestDispatcher dispatcher = context.getRequestDispatcher("/staff_check.jsp");
       dispatcher.forward(request,response);
     }else{
@@ -70,27 +58,4 @@ public class StaffReg extends HttpServlet {
     processRequest(request, response);
   }
 
-  public static boolean isEmpty(String value) {
-    if ( value == null || value.length() == 0 ){
-      return true;
-    }else{
-      return false;
-    }
-  }
-
-  public static String isHanStr(String s){
-    if (!s.matches("^[0-9a-zA-Z]+$")) {
-      return "FAILURE";
-    }else{
-      return "SUCCESS";
-    }
-  }
-
-  public static String checkLength(String str) {
-    if (str.length() >= 8 && str.length() <= 64){
-      return "SUCCESS";
-    }else{
-      return "FAILURE";
-    }
-  }
 }

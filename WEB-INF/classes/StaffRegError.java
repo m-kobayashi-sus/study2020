@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import db.DBAccesser;
-
+import method.CheckForm;
 
 public class StaffRegError extends HttpServlet {
 
@@ -19,30 +19,19 @@ public class StaffRegError extends HttpServlet {
 
     request.setCharacterEncoding("Shift_JIS");
 	response.setCharacterEncoding("Shift_JIS");
+	CheckForm cf = new CheckForm();
     String name = (String)request.getParameter("name");
-    String nameCheck;
-    if (name.length() >= 2 && name.length() <= 20){
-      nameCheck = "SUCCESS";
-    }else{
-      nameCheck = "FAILURE";
-    }
+    String nameCheck = cf.checkName(name);
     String mailaddress = (String)request.getParameter("mailaddress");
-    String mailaddressCheck;
-    if(mailaddress.length() <= 50){
-      mailaddressCheck = "SUCCESS";
-    }else{
-      mailaddressCheck = "FAILURE";
-    }
+    String mailaddressCheck = cf.checkMailaddress(mailaddress);
     String password = (String)request.getParameter("password");
-    String passwordCheck = checkLength(password);
+    String passwordCheck = cf.checkPassword(password);
     String id = (String)request.getParameter("id");
     PrintWriter out = response.getWriter();
     response.setCharacterEncoding("UTF-8");
-
     ServletContext context = this.getServletContext();
-    if (name.length() >= 2 && name.length() <= 20 &&
-        password.length() >= 8 && password.length() <= 64 && isHanStr(password) == "SUCCESS" &&
-        mailaddress.length() <= 50 && isEmpty(mailaddress) == false && isHanStr(mailaddress) == "SUCCESS"){
+
+    if (cf.checkForm(name, mailaddress, password) == true){
       DBAccesser db = new DBAccesser();
       try{
         db.open();
@@ -93,8 +82,8 @@ public class StaffRegError extends HttpServlet {
       request.setAttribute("nameCheck",nameCheck);
       request.setAttribute("mailaddressCheck",mailaddressCheck);
       request.setAttribute("passwordCheck",passwordCheck);
-      request.setAttribute("checkHanMailaddress",isHanStr(mailaddress) );
-      request.setAttribute("checkHanPassword",isHanStr(password) );
+      request.setAttribute("checkHanMailaddress",cf.isHanStr(mailaddress) );
+      request.setAttribute("checkHanPassword",cf.isHanStr(password) );
       request.setAttribute("Password",password);
       request.setAttribute("Name",name);
       request.setAttribute("Mailaddress",mailaddress);
@@ -113,31 +102,6 @@ public class StaffRegError extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     processRequest(request, response);
-  }
-
-  public static boolean isEmpty(String value) {
-    if ( value == null || value.length() == 0 ){
-      return true;
-    }else{
-      return false;
-    }
-  }
-
-  public static String isHanStr(String s){
-    if (!s.matches("^[0-9a-zA-Z]+$")) {
-      return "FAILURE";
-    }else{
-      return "SUCCESS";
-    }
-  }
-
-
-  public static String checkLength(String str) {
-    if (str.length() >= 8 && str.length() <= 64){
-      return "SUCCESS";
-    }else{
-      return "FAILURE";
-    }
   }
 
 }

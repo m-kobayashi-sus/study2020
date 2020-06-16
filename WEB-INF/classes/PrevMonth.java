@@ -1,11 +1,8 @@
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -62,7 +59,7 @@ public class PrevMonth extends HttpServlet{
         nextMonth = 1;
         sql = "SELECT * FROM attendance WHERE employee_id = "+ name +" AND date >= '"+ prevYear +"-"+ prev +"-01' AND date <'"+ year +"-"+ nextMonth +"-01'";
         year = String.valueOf(prevYear);
-      }else {
+      }else{
         nextMonth = prev + 1;
         sql = "SELECT * FROM attendance WHERE employee_id = "+ name +" AND date >= '"+ year +"-"+ prev +"-01' AND date <'"+ year +"-"+ nextMonth +"-01'";
       }
@@ -70,22 +67,11 @@ public class PrevMonth extends HttpServlet{
       out.println(sql);
       rs = db.getResultSet(sql);
       List<DataBean> workTimeList = new ArrayList<DataBean>();
-      while (rs.next()) {
-        int id = rs.getInt("id");
-        String startTime  = rs.getString("start_time");
-        String endTime = rs.getString("end_time");
-        String breakTime = rs.getString("break_time");
-        Boolean deleteFlag = rs.getBoolean("delete_flag");
-        String diffTime = getTime(startTime,endTime,breakTime);
-        workTimeList.add(new DataBean(rs.getInt("id"), rs.getString("date"), rs.getString("start_time").substring(0,5), rs.getString("end_time").substring(0,5), rs.getInt("break_time"), diffTime.substring(0,5), rs.getString("detail")));
-
-        request.setAttribute("Year",year);
-        request.setAttribute("Name",name);
-        request.setAttribute("Month",prev);
-        request.setAttribute("diffTime",diffTime);
-        request.setAttribute("id",id);
-        request.setAttribute("dbdata", workTimeList);
-      }
+      workTimeList = db.getWorkingTimeList(rs);
+      request.setAttribute("dbdata", workTimeList);
+      request.setAttribute("Year",year);
+      request.setAttribute("Name",name);
+      request.setAttribute("Month",prev);
       if(workTimeList.size() == 0) {
       	getServletContext().getRequestDispatcher("/error.jsp").forward(request, response);
       }
@@ -111,22 +97,4 @@ public class PrevMonth extends HttpServlet{
     processRequest(request, response);
   }
 
-
-  public static String getTime(String start, String end, String breakTime) throws Exception { //�Ζ����Ԃ��v�Z
-    int hour = Integer.parseInt(end.substring(0,2));
-    hour = hour - (Integer.parseInt(breakTime)/60);
-    SimpleDateFormat formatter = new SimpleDateFormat ("HH:mm:ss");
-    Date startDate = formatter.parse(start); // �J�n����
-    Date endDate = formatter.parse(hour+":00:00"); // �I������
-
-
-    long diffTime = endDate.getTime() - startDate.getTime();
-
-    SimpleDateFormat timeFormatter = new SimpleDateFormat ("HH:mm:ss");
-    timeFormatter.setTimeZone(TimeZone.getTimeZone("GMT"));
-
-    String diffTimeStr = timeFormatter.format(new Date(diffTime));
-
-    return diffTimeStr;
-  }
 }
